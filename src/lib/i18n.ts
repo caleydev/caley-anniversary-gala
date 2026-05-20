@@ -8,6 +8,7 @@ export const copy = {
     envelopeSub: "Acompáñanos en nuestra gran celebración por nuestro 8.º aniversario.",
     openBtn: "Abrir invitación",
     envelopeHint: "Toca el sobre para abrirlo",
+    envelopeOpening: "Abriendo…",
     sealLine1: "CALEY INSURANCE",
     sealLine2: "8TH ANNIVERSARY",
 
@@ -140,7 +141,8 @@ export const copy = {
     envelopeHeadline: "You are invited to a special night",
     envelopeSub: "Join us for our grand celebration of our 8th anniversary.",
     openBtn: "Open Invitation",
-    envelopeHint: "Tap the envelope to open",
+    envelopeHint: "Tap the envelope to open it",
+    envelopeOpening: "Opening…",
     sealLine1: "CALEY INSURANCE",
     sealLine2: "8TH ANNIVERSARY",
 
