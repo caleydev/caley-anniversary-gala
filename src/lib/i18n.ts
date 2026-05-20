@@ -119,6 +119,6 @@ export const copy = {
     footerName: "Caley Insurance • 8th Anniversary Celebration",
     rights: "© 2026 Caley Insurance. All rights reserved.",
   },
-} as const;
+};
 
-export type Copy = typeof copy.es;
+export type Copy = (typeof copy)["es"];
