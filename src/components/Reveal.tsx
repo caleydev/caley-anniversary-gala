@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+export function Reveal({ children, className = "", delay = 0, style }: { children: React.ReactNode; className?: string; delay?: number; style?: React.CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current;
@@ -20,7 +20,7 @@ export function Reveal({ children, className = "", delay = 0 }: { children: Reac
     return () => obs.disconnect();
   }, [delay]);
   return (
-    <div ref={ref} className={`reveal-up ${className}`}>
+    <div ref={ref} className={`reveal-up ${className}`} style={style}>
       {children}
     </div>
   );
