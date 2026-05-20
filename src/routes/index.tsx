@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Caley Insurance · 8.º Aniversario" },
-      { name: "description", content: "Una celebración elegante por el 8.º aniversario de Caley Insurance. 27 de junio de 2026, Miami, FL." },
+      { name: "description", content: "Acompáñanos en la gran celebración del 8.º aniversario de Caley Insurance. 27 de junio de 2026, Miami, FL." },
       { property: "og:title", content: "Caley Insurance · 8.º Aniversario" },
       { property: "og:description", content: "The Event of the Year — 27 de junio de 2026." },
       { property: "og:type", content: "website" },

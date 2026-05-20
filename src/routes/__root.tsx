@@ -74,7 +74,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Caley Insurance · 8.º Aniversario" },
-      { name: "description", content: "Una celebración elegante por el 8.º aniversario de Caley Insurance." },
+      { name: "description", content: "Acompáñanos en la gran celebración del 8.º aniversario de Caley Insurance." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
