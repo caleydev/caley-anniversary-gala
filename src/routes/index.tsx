@@ -69,33 +69,33 @@ function Page() {
   );
 }
 
-/* ---------- Cinematic ballroom background ---------- */
+/* ---------- Cinematic midnight ballroom background (inner pages) ---------- */
 function BallroomBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
-      {/* Deep navy base + ballroom atmosphere */}
+      {/* Deep midnight navy base */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,87,184,0.35) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 50% 100%, rgba(214,168,79,0.18) 0%, transparent 65%), radial-gradient(ellipse 40% 60% at 12% 60%, rgba(0,166,255,0.18) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 88% 70%, rgba(0,166,255,0.16) 0%, transparent 60%), linear-gradient(180deg, #020817 0%, #04102a 50%, #02071a 100%)",
+            "radial-gradient(ellipse 70% 45% at 50% 0%, rgba(10,40,90,0.55) 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 50% 100%, rgba(180,135,55,0.14) 0%, transparent 65%), radial-gradient(ellipse 40% 60% at 10% 55%, rgba(20,60,130,0.22) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 90% 70%, rgba(20,60,130,0.20) 0%, transparent 60%), linear-gradient(180deg, #01030c 0%, #030a1e 45%, #01030c 100%)",
         }}
       />
-      {/* Abstract chandelier silhouette */}
+      {/* Distant chandelier glow */}
       <div
-        className="absolute left-1/2 top-0 h-[40vh] w-[60vw] -translate-x-1/2 opacity-25"
+        className="absolute left-1/2 top-0 h-[40vh] w-[60vw] -translate-x-1/2 opacity-30"
         style={{
           background:
-            "radial-gradient(ellipse 50% 30% at 50% 0%, rgba(245,199,107,0.45), transparent 70%)",
-          filter: "blur(40px)",
+            "radial-gradient(ellipse 50% 30% at 50% 0%, rgba(245,209,128,0.45), transparent 70%)",
+          filter: "blur(50px)",
         }}
       />
       {/* Light beams */}
       <div
-        className="absolute inset-0 opacity-50"
+        className="absolute inset-0 opacity-40"
         style={{
           background:
-            "conic-gradient(from 200deg at 50% -10%, transparent 0deg, rgba(0,166,255,0.08) 20deg, transparent 40deg, transparent 320deg, rgba(245,199,107,0.07) 340deg, transparent 360deg)",
+            "conic-gradient(from 200deg at 50% -10%, transparent 0deg, rgba(0,120,220,0.06) 20deg, transparent 40deg, transparent 320deg, rgba(245,209,128,0.06) 340deg, transparent 360deg)",
         }}
       />
       {/* Reflective floor */}
@@ -103,16 +103,16 @@ function BallroomBackground() {
         className="absolute inset-x-0 bottom-0 h-[35vh]"
         style={{
           background:
-            "linear-gradient(180deg, transparent 0%, rgba(0,87,184,0.15) 50%, rgba(0,166,255,0.12) 100%)",
+            "linear-gradient(180deg, transparent 0%, rgba(10,40,90,0.20) 50%, rgba(0,120,220,0.10) 100%)",
           maskImage: "linear-gradient(to bottom, transparent, black 40%)",
         }}
       />
-      {/* Bokeh orbs */}
-      {Array.from({ length: 14 }).map((_, i) => {
+      {/* Bokeh orbs (gold-dominant) */}
+      {Array.from({ length: 16 }).map((_, i) => {
         const top = (i * 73) % 100;
         const left = (i * 41) % 100;
-        const size = 8 + ((i * 9) % 28);
-        const dim = (i % 2 === 0);
+        const size = 6 + ((i * 9) % 24);
+        const gold = i % 3 !== 0;
         return (
           <div
             key={i}
@@ -122,15 +122,23 @@ function BallroomBackground() {
               left: `${left}%`,
               width: size,
               height: size,
-              background: dim
-                ? "rgba(245,199,107,0.45)"
-                : "rgba(0,166,255,0.45)",
+              background: gold
+                ? "rgba(245,209,128,0.55)"
+                : "rgba(0,120,220,0.45)",
               opacity: 0.4,
             }}
           />
         );
       })}
-      {/* Subtle noise overlay */}
+      {/* Vignette */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 90% 75% at 50% 50%, transparent 40%, rgba(0,0,0,0.6) 100%)",
+        }}
+      />
+      {/* Noise grain */}
       <div
         className="absolute inset-0 opacity-[0.08] mix-blend-overlay"
         style={{
