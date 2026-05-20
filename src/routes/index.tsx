@@ -316,70 +316,164 @@ function SectionTitle({ eyebrow, title, sub }: { eyebrow?: string; title: string
 }
 
 /* ---------- Event details ---------- */
+function DetailCard({
+  Icon,
+  label,
+  value,
+  children,
+  delay = 0,
+}: {
+  Icon: typeof Calendar;
+  label: string;
+  value: React.ReactNode;
+  children?: React.ReactNode;
+  delay?: number;
+}) {
+  return (
+    <Reveal delay={delay}>
+      <div
+        className="group relative flex h-full flex-col items-center overflow-hidden rounded-2xl p-7 text-center transition-all hover:-translate-y-1"
+        style={{
+          background:
+            "linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+          backdropFilter: "blur(20px)",
+          border: "1px solid rgba(214,168,79,0.35)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -30px rgba(0,0,0,0.7)",
+        }}
+      >
+        <div
+          className="absolute inset-x-0 top-0 h-px"
+          style={{ background: "linear-gradient(90deg, transparent, #d6a84f, transparent)" }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 0%, rgba(0,166,255,0.25), transparent 60%)",
+          }}
+        />
+
+        <div
+          className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle at 30% 30%, #fff4d2, #d6a84f 60%, #8a6824)",
+            boxShadow: "0 8px 24px -6px rgba(214,168,79,0.6)",
+          }}
+        >
+          <Icon className="h-6 w-6" style={{ color: "#2a1b04" }} strokeWidth={1.5} />
+        </div>
+        <div
+          className="text-[10px] uppercase tracking-[0.4em] text-white/60"
+          style={{ fontFamily: "'Cinzel', serif" }}
+        >
+          {label}
+        </div>
+        <div
+          className="mt-3 text-xl text-white sm:text-2xl"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 500 }}
+        >
+          {value}
+        </div>
+        {children && <div className="mt-5 flex flex-wrap items-center justify-center gap-2">{children}</div>}
+      </div>
+    </Reveal>
+  );
+}
+
+function GoldPillButton({
+  onClick,
+  Icon,
+  children,
+}: {
+  onClick: () => void;
+  Icon: typeof Calendar;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="group inline-flex items-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.25em] transition-all hover:scale-[1.03]"
+      style={{
+        background: "linear-gradient(135deg, #f5c76b 0%, #d6a84f 55%, #a4781c 100%)",
+        color: "#0a1838",
+        fontFamily: "'Cinzel', serif",
+        boxShadow:
+          "0 8px 22px -8px rgba(214,168,79,0.7), inset 0 1px 0 rgba(255,240,200,0.5), inset 0 -1px 2px rgba(80,55,10,0.4)",
+      }}
+    >
+      <Icon className="h-3.5 w-3.5" strokeWidth={2} />
+      <span>{children}</span>
+    </button>
+  );
+}
+
+function GhostPillButton({
+  onClick,
+  Icon,
+  children,
+}: {
+  onClick: () => void;
+  Icon: typeof Calendar;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/85 transition-all hover:bg-white/5 hover:text-white"
+      style={{
+        fontFamily: "'Cinzel', serif",
+        border: "1px solid rgba(214,168,79,0.45)",
+        background: "rgba(255,255,255,0.03)",
+        backdropFilter: "blur(8px)",
+      }}
+    >
+      <Icon className="h-3.5 w-3.5" strokeWidth={2} />
+      <span>{children}</span>
+    </button>
+  );
+}
+
 function EventDetails({ t }: { t: Copy }) {
-  const items = [
-    { Icon: Calendar, label: t.dateL, value: t.dateV },
-    { Icon: Clock, label: t.timeL, value: t.timeV },
-    { Icon: MapPin, label: t.placeL, value: `${t.placeV1} · ${t.placeV2}` },
-  ];
   return (
     <section id="details" className="relative py-20 sm:py-24">
       <Container>
         <Reveal><SectionTitle eyebrow={t.detailsEyebrow} title={t.detailsTitle} /></Reveal>
 
         <div className="grid gap-5 md:grid-cols-3">
-          {items.map(({ Icon, label, value }, i) => (
-            <Reveal key={label} delay={i * 90}>
-              <div
-                className="group relative h-full overflow-hidden rounded-2xl p-7 text-center transition-all hover:-translate-y-1"
-                style={{
-                  background:
-                    "linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-                  backdropFilter: "blur(20px)",
-                  border: "1px solid rgba(214,168,79,0.35)",
-                  boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -30px rgba(0,0,0,0.7)",
-                }}
-              >
-                {/* Top gold line */}
-                <div
-                  className="absolute inset-x-0 top-0 h-px"
-                  style={{ background: "linear-gradient(90deg, transparent, #d6a84f, transparent)" }}
-                />
-                {/* Blue glow on hover */}
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 50% 0%, rgba(0,166,255,0.25), transparent 60%)",
-                  }}
-                />
+          <DetailCard Icon={Calendar} label={t.dateL} value={t.dateV} delay={0}>
+            <GoldPillButton
+              onClick={() => generateICSFile({ title: t.icsTitle, description: t.icsDescription })}
+              Icon={CalendarPlus}
+            >
+              {t.saveDateBtn}
+            </GoldPillButton>
+          </DetailCard>
 
-                <div
-                  className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 30% 30%, #fff4d2, #d6a84f 60%, #8a6824)",
-                    boxShadow: "0 8px 24px -6px rgba(214,168,79,0.6)",
-                  }}
-                >
-                  <Icon className="h-6 w-6" style={{ color: "#2a1b04" }} strokeWidth={1.5} />
-                </div>
-                <div
-                  className="text-[10px] uppercase tracking-[0.4em] text-white/60"
-                  style={{ fontFamily: "'Cinzel', serif" }}
-                >
-                  {label}
-                </div>
-                <div
-                  className="mt-3 text-xl text-white sm:text-2xl"
-                  style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 500 }}
-                >
-                  {value}
-                </div>
-              </div>
-            </Reveal>
-          ))}
+          <DetailCard Icon={Clock} label={t.timeL} value={t.timeV} delay={90} />
+
+          <DetailCard
+            Icon={MapPin}
+            label={t.placeL}
+            value={
+              <span className="flex flex-col leading-tight">
+                <span>{t.placeV1}</span>
+                <span className="text-white/80">{t.placeV2}</span>
+              </span>
+            }
+            delay={180}
+          >
+            <GoldPillButton onClick={openGoogleMaps} Icon={ExternalLink}>
+              {t.openMapsBtn}
+            </GoldPillButton>
+            <GhostPillButton
+              onClick={() => copyAddress(t.addressCopiedToast)}
+              Icon={CopyIcon}
+            >
+              {t.copyAddressBtn}
+            </GhostPillButton>
+          </DetailCard>
         </div>
 
         {/* Guests banner */}
