@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Copy } from "@/lib/i18n";
 import logo from "@/assets/caley-logo.webp";
 import { AnniversarySeal } from "./AnniversarySeal";
+import { SalonBackground } from "./SalonBackground";
 
 export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
   const [opening, setOpening] = useState(false);
@@ -14,12 +15,14 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
 
   return (
     <section className="relative z-10 flex min-h-screen items-center justify-center px-4 py-16">
-      {/* Spotlight & beams */}
+      {/* Grand salon venue background (blue/gold balloons, chandelier, logos) */}
+      <SalonBackground />
+      {/* Center spotlight on envelope */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 55% 65% at 50% 50%, rgba(0,87,184,0.35), transparent 65%), radial-gradient(ellipse 40% 30% at 50% 100%, rgba(214,168,79,0.25), transparent 70%)",
+            "radial-gradient(ellipse 45% 55% at 50% 50%, rgba(255,225,160,0.18), transparent 60%)",
         }}
       />
 
