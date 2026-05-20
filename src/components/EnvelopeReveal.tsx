@@ -22,7 +22,7 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 50% 55% at 50% 48%, rgba(255,225,160,0.18), transparent 65%)",
+            "radial-gradient(ellipse 50% 55% at 50% 50%, rgba(255,225,160,0.20), transparent 65%)",
         }}
       />
 
@@ -41,39 +41,38 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
           {t.presents}
         </p>
 
-        {/* Envelope stage */}
-        <div
-          className={`group relative w-full max-w-[460px] cursor-pointer select-none transition-all duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
+        {/* Envelope — the only clickable opener */}
+        <button
+          type="button"
+          aria-label={t.envelopeHint}
+          onClick={handleOpen}
+          disabled={opening}
+          className={`group relative block w-full max-w-[460px] cursor-pointer select-none rounded-[14px] outline-none transition-all duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)] focus-visible:ring-2 focus-visible:ring-[#f5d889]/70 ${
             opening
               ? "scale-[1.18] -translate-y-6 opacity-0"
-              : "scale-100 translate-y-0 opacity-100 hover:scale-[1.025]"
+              : "scale-100 translate-y-0 opacity-100 hover:scale-[1.03] animate-[envBreathe_5s_ease-in-out_infinite]"
           }`}
-          role="button"
-          tabIndex={0}
-          aria-label={t.openBtn}
-          onClick={handleOpen}
-          onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleOpen()}
         >
           {/* Realistic drop shadow under envelope */}
           <div
-            className="absolute left-1/2 -bottom-6 h-10 w-[78%] -translate-x-1/2 rounded-[50%] blur-3xl"
+            className="pointer-events-none absolute left-1/2 -bottom-6 h-10 w-[78%] -translate-x-1/2 rounded-[50%] blur-3xl"
             style={{ background: "rgba(0,0,0,0.85)" }}
           />
           <div
-            className="absolute left-1/2 -bottom-2 h-4 w-[55%] -translate-x-1/2 rounded-[50%] blur-xl opacity-80"
+            className="pointer-events-none absolute left-1/2 -bottom-2 h-4 w-[55%] -translate-x-1/2 rounded-[50%] blur-xl opacity-80"
             style={{ background: "rgba(214,168,79,0.45)" }}
           />
 
-          {/* Ambient gold glow that pulses on hover */}
+          {/* Ambient gold glow that intensifies on hover */}
           <div
-            className="pointer-events-none absolute -inset-10 rounded-[40%] opacity-60 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
+            className="pointer-events-none absolute -inset-10 rounded-[40%] opacity-55 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
             style={{
               background:
-                "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(245,209,128,0.45), transparent 70%)",
+                "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(245,209,128,0.5), transparent 70%)",
             }}
           />
 
-          {/* The envelope image */}
+          {/* The envelope image + overlays */}
           <div className="relative">
             <img
               src={envelopeImg}
@@ -82,45 +81,46 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
               draggable={false}
               style={{
                 filter:
-                  "drop-shadow(0 30px 50px rgba(0,0,0,0.75)) drop-shadow(0 0 25px rgba(245,209,128,0.25))",
+                  "drop-shadow(0 30px 50px rgba(0,0,0,0.75)) drop-shadow(0 0 25px rgba(245,209,128,0.28))",
               }}
             />
 
-            {/* Caley logo embossed on the seal (centered over the wax seal area) */}
+            {/* Caley logo — embossed on the TOP part of the envelope */}
             <div
-              className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
-              style={{ width: "16%" }}
+              className="pointer-events-none absolute left-1/2 z-20 -translate-x-1/2"
+              style={{ top: "18%", width: "26%" }}
             >
-              <div
-                className="relative aspect-square w-full rounded-full"
+              <img
+                src={logo}
+                alt="Caley Insurance"
+                className="block w-full object-contain"
                 style={{
-                  background:
-                    "radial-gradient(circle at 35% 30%, rgba(255,245,210,0.18) 0%, rgba(120,85,25,0.0) 60%)",
+                  filter:
+                    "drop-shadow(0 1px 0 rgba(255,245,210,0.55)) drop-shadow(0 -1px 0 rgba(60,40,5,0.55)) brightness(0.9) contrast(1.05) sepia(0.25) hue-rotate(-10deg) saturate(1.1)",
+                  mixBlendMode: "multiply",
+                  opacity: 0.85,
+                }}
+              />
+            </div>
+
+            {/* "8" — perfectly centered on the wax seal */}
+            <div
+              className="pointer-events-none absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+              style={{ width: "10%", aspectRatio: "1 / 1" }}
+            >
+              <span
+                className="leading-none"
+                style={{
+                  fontFamily: "'Cinzel', serif",
+                  fontWeight: 700,
+                  fontSize: "2.6vw",
+                  color: "#2a1b04",
+                  textShadow:
+                    "0 1px 0 rgba(255,245,210,0.7), 0 -1px 0 rgba(40,25,2,0.7)",
                 }}
               >
-                <img
-                  src={logo}
-                  alt="Caley Insurance"
-                  className="absolute inset-0 m-auto h-[78%] w-[78%] object-contain"
-                  style={{
-                    filter:
-                      "drop-shadow(0 1px 0 rgba(255,245,210,0.7)) drop-shadow(0 -1px 0 rgba(60,40,5,0.6)) brightness(0.92) contrast(1.05)",
-                    mixBlendMode: "multiply",
-                    opacity: 0.92,
-                  }}
-                />
-                {/* "8" mini emboss beneath logo */}
-                <span
-                  className="absolute left-1/2 top-[88%] -translate-x-1/2 text-[10px] font-bold tracking-[0.2em]"
-                  style={{
-                    fontFamily: "'Cinzel', serif",
-                    color: "#3a2608",
-                    textShadow: "0 1px 0 rgba(255,245,210,0.55)",
-                  }}
-                >
-                  · 8 ·
-                </span>
-              </div>
+                8
+              </span>
             </div>
 
             {/* Soft sheen sweep on hover */}
@@ -143,19 +143,25 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
               />
             )}
           </div>
+        </button>
 
-          {/* Tap hint */}
-          <p
-            className={`mt-5 text-[9px] uppercase tracking-[0.45em] text-white/55 transition-opacity duration-500 sm:text-[10px] ${opening ? "opacity-0" : "opacity-100"}`}
-            style={{ fontFamily: "'Cinzel', serif" }}
-          >
-            {t.envelopeHint}
-          </p>
-        </div>
+        {/* Helper instruction */}
+        <p
+          className={`mt-6 text-[10px] uppercase tracking-[0.45em] transition-opacity duration-500 sm:mt-7 sm:text-[11px] ${opening ? "opacity-0" : "opacity-80"}`}
+          style={{
+            fontFamily: "'Cinzel', serif",
+            background: "linear-gradient(180deg, #fff4cc, #d6a84f)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            color: "transparent",
+          }}
+        >
+          {opening ? t.envelopeOpening : t.envelopeHint}
+        </p>
 
         {/* Copy block */}
         <h1
-          className={`mt-10 text-3xl font-medium leading-tight text-white sm:mt-14 sm:text-4xl md:text-5xl transition-all duration-700 ${opening ? "opacity-0 translate-y-4" : "opacity-100"}`}
+          className={`mt-8 text-3xl font-medium leading-tight text-white sm:mt-10 sm:text-4xl md:text-5xl transition-all duration-700 ${opening ? "opacity-0 translate-y-4" : "opacity-100"}`}
           style={{
             fontFamily: "'Cormorant Garamond', serif",
             letterSpacing: "0.01em",
@@ -169,25 +175,6 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
         >
           {t.envelopeSub}
         </p>
-
-        <button
-          onClick={handleOpen}
-          disabled={opening}
-          className={`group/btn mt-8 relative overflow-hidden rounded-full px-10 py-3.5 text-[11px] font-semibold uppercase tracking-[0.4em] transition-all duration-500 sm:mt-10 ${
-            opening ? "opacity-0 translate-y-4" : "opacity-100 hover:scale-[1.04]"
-          }`}
-          style={{
-            background:
-              "linear-gradient(135deg, #fff4cc 0%, #f5d889 35%, #d6a84f 65%, #a4781c 100%)",
-            color: "#1a1305",
-            fontFamily: "'Cinzel', serif",
-            boxShadow:
-              "0 16px 40px -10px rgba(214,168,79,0.7), inset 0 1px 0 rgba(255,245,210,0.6), inset 0 -2px 4px rgba(80,55,10,0.45)",
-          }}
-        >
-          <span className="relative z-10">{t.openBtn}</span>
-          <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/55 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full" />
-        </button>
       </div>
 
       <style>{`
@@ -195,6 +182,10 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
           0% { opacity: 0; transform: scale(0.5); }
           40% { opacity: 1; }
           100% { opacity: 0; transform: scale(2.8); }
+        }
+        @keyframes envBreathe {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
         }
       `}</style>
     </section>
