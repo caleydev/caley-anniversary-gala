@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
 
@@ -73,7 +74,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Caley Insurance · 8.º Aniversario" },
-      { name: "description", content: "Una celebración elegante por el 8.º aniversario de Caley Insurance." },
+      { name: "description", content: "Acompáñanos en la gran celebración del 8.º aniversario de Caley Insurance." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -111,6 +112,22 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Toaster
+        position="bottom-center"
+        theme="dark"
+        toastOptions={{
+          style: {
+            background: "linear-gradient(160deg, rgba(8,20,46,0.95), rgba(4,12,32,0.95))",
+            border: "1px solid rgba(214,168,79,0.5)",
+            color: "#fff4d2",
+            backdropFilter: "blur(20px)",
+            fontFamily: "'Cinzel', serif",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            fontSize: "12px",
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 }
