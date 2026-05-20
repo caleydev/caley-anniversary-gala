@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Copy } from "@/lib/i18n";
 
-export const EVENT_DATE = new Date("2026-12-31T20:00:00");
+export const EVENT_DATE = new Date("2026-06-27T18:00:00");
 
 function diff(target: Date) {
   const ms = target.getTime() - Date.now();
