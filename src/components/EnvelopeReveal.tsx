@@ -33,7 +33,7 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
 
         {/* Envelope */}
         <div
-          className={`relative w-full max-w-[520px] transition-all duration-1200 ease-[cubic-bezier(0.65,0,0.35,1)] ${
+          className={`relative w-full max-w-[520px] transition-all duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
             opening ? "scale-95 -translate-y-24 opacity-0" : "scale-100 translate-y-0 opacity-100"
           }`}
           style={{ perspective: "1400px" }}
@@ -109,7 +109,7 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
 
               {/* TOP FLAP (triangle) - opens up */}
               <div
-                className={`absolute inset-x-0 top-0 origin-top transition-transform duration-1400 ease-[cubic-bezier(0.7,0,0.3,1)] ${
+                className={`absolute inset-x-0 top-0 origin-top transition-transform duration-[1400ms] ease-[cubic-bezier(0.7,0,0.3,1)] ${
                   opening ? "[transform:rotateX(-180deg)]" : ""
                 }`}
                 style={{
