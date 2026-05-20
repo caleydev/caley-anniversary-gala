@@ -38,7 +38,7 @@ export function FireworksBackground({ intensity = 0.5 }: Props) {
     window.addEventListener("resize", resize);
 
     const particles: Particle[] = [];
-    const colors = ["#f5d889", "#e8c46a", "#6ab7ff", "#3b8fe6", "#ffffff"];
+    const colors = ["#f5d889", "#e8c46a", "#fff4cc", "#d6a84f", "#a87f29", "#6ab7ff"];
 
     const burst = (x: number, y: number) => {
       const count = isMobile ? 28 : 55;
@@ -60,7 +60,7 @@ export function FireworksBackground({ intensity = 0.5 }: Props) {
 
     let raf = 0;
     let lastBurst = 0;
-    const burstInterval = reduce ? 99999 : (isMobile ? 1800 : 1200) / Math.max(intensity, 0.15);
+    const burstInterval = reduce ? 99999 : (isMobile ? 2600 : 1900) / Math.max(intensity, 0.15);
 
     const tick = (t: number) => {
       ctx.fillStyle = "rgba(10, 14, 30, 0.18)";
