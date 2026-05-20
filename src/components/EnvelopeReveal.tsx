@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Copy } from "@/lib/i18n";
 import logo from "@/assets/caley-logo.webp";
-import { AnniversarySeal } from "./AnniversarySeal";
+import envelopeImg from "@/assets/envelope-gold.png";
 import { LuxuryGalaBackground } from "./LuxuryGalaBackground";
 
 export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
@@ -10,25 +10,26 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
   const handleOpen = () => {
     if (opening) return;
     setOpening(true);
-    setTimeout(onOpen, 1700);
+    setTimeout(onOpen, 1500);
   };
 
   return (
-    <section className="relative z-10 flex min-h-screen items-center justify-center px-4 py-16">
+    <section className="relative z-10 flex min-h-screen items-center justify-center px-4 py-14 sm:py-16">
       <LuxuryGalaBackground />
 
-      {/* Center spotlight focused on envelope */}
+      {/* Stage spotlight on envelope */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 40% 50% at 50% 52%, rgba(255,225,160,0.16), transparent 65%)",
+            "radial-gradient(ellipse 50% 55% at 50% 48%, rgba(255,225,160,0.18), transparent 65%)",
         }}
       />
 
       <div className="relative flex w-full max-w-2xl flex-col items-center text-center">
+        {/* Eyebrow */}
         <p
-          className={`mb-7 text-[10px] uppercase tracking-[0.6em] transition-all duration-700 sm:text-[11px] ${opening ? "opacity-0 -translate-y-4" : "opacity-100"}`}
+          className={`mb-6 text-[10px] uppercase tracking-[0.6em] transition-all duration-700 sm:mb-8 sm:text-[11px] ${opening ? "opacity-0 -translate-y-4" : "opacity-100"}`}
           style={{
             fontFamily: "'Cinzel', serif",
             background: "linear-gradient(180deg, #fff4cc, #d6a84f)",
@@ -40,182 +41,121 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
           {t.presents}
         </p>
 
-        {/* Realistic GOLD envelope */}
+        {/* Envelope stage */}
         <div
-          className={`relative w-full max-w-[480px] transition-all duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
-            opening ? "scale-95 -translate-y-20 opacity-0" : "scale-100 translate-y-0 opacity-100"
+          className={`group relative w-full max-w-[460px] cursor-pointer select-none transition-all duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
+            opening
+              ? "scale-[1.18] -translate-y-6 opacity-0"
+              : "scale-100 translate-y-0 opacity-100 hover:scale-[1.025]"
           }`}
-          style={{ perspective: "1600px" }}
+          role="button"
+          tabIndex={0}
+          aria-label={t.openBtn}
+          onClick={handleOpen}
+          onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleOpen()}
         >
-          {/* Soft realistic shadow under envelope */}
+          {/* Realistic drop shadow under envelope */}
           <div
-            className="absolute left-1/2 -bottom-8 h-12 w-[88%] -translate-x-1/2 rounded-[50%] blur-3xl"
-            style={{ background: "rgba(0,0,0,0.75)" }}
+            className="absolute left-1/2 -bottom-6 h-10 w-[78%] -translate-x-1/2 rounded-[50%] blur-3xl"
+            style={{ background: "rgba(0,0,0,0.85)" }}
           />
           <div
-            className="absolute left-1/2 -bottom-4 h-6 w-[60%] -translate-x-1/2 rounded-[50%] blur-xl"
-            style={{ background: "rgba(214,168,79,0.35)" }}
+            className="absolute left-1/2 -bottom-2 h-4 w-[55%] -translate-x-1/2 rounded-[50%] blur-xl opacity-80"
+            style={{ background: "rgba(214,168,79,0.45)" }}
           />
 
+          {/* Ambient gold glow that pulses on hover */}
+          <div
+            className="pointer-events-none absolute -inset-10 rounded-[40%] opacity-60 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
+            style={{
+              background:
+                "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(245,209,128,0.45), transparent 70%)",
+            }}
+          />
+
+          {/* The envelope image */}
           <div className="relative">
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={handleOpen}
-              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleOpen()}
-              aria-label={t.openBtn}
-              className="group relative aspect-[1.55/1] cursor-pointer rounded-[10px] overflow-hidden transition-transform duration-500 hover:-translate-y-1"
+            <img
+              src={envelopeImg}
+              alt=""
+              className="relative z-10 w-full select-none"
+              draggable={false}
               style={{
-                background:
-                  "linear-gradient(155deg, #f5dc92 0%, #d8ad52 18%, #b8862e 40%, #8a601a 55%, #b8862e 72%, #d8ad52 88%, #f5dc92 100%)",
-                boxShadow:
-                  "0 50px 90px -30px rgba(0,0,0,0.9), 0 0 0 1px rgba(120,85,25,0.7), inset 0 0 0 1px rgba(255,240,200,0.45), inset 0 -20px 40px rgba(80,55,10,0.55), inset 0 30px 50px rgba(255,240,200,0.18)",
+                filter:
+                  "drop-shadow(0 30px 50px rgba(0,0,0,0.75)) drop-shadow(0 0 25px rgba(245,209,128,0.25))",
               }}
+            />
+
+            {/* Caley logo embossed on the seal (centered over the wax seal area) */}
+            <div
+              className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
+              style={{ width: "16%" }}
             >
-              {/* Satin brushed-metal sheen */}
               <div
-                className="pointer-events-none absolute inset-0 opacity-40 mix-blend-overlay"
+                className="relative aspect-square w-full rounded-full"
                 style={{
                   background:
-                    "repeating-linear-gradient(115deg, rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.18) 1px, transparent 1px, transparent 4px)",
+                    "radial-gradient(circle at 35% 30%, rgba(255,245,210,0.18) 0%, rgba(120,85,25,0.0) 60%)",
                 }}
-              />
-
-              {/* Subtle paper noise */}
-              <div
-                className="pointer-events-none absolute inset-0 opacity-[0.13] mix-blend-overlay"
-                style={{
-                  backgroundImage:
-                    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
-                }}
-              />
-
-              {/* Inner darker gold border */}
-              <div
-                className="pointer-events-none absolute inset-[6px] rounded-[7px]"
-                style={{
-                  border: "1px solid rgba(80,55,10,0.5)",
-                  boxShadow: "inset 0 0 0 1px rgba(255,240,200,0.35)",
-                }}
-              />
-
-              {/* Diagonal envelope fold lines (side flaps) — subtle gold seam */}
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(to top right, transparent 49.6%, rgba(80,55,10,0.45) 50%, transparent 50.4%), linear-gradient(to top left, transparent 49.6%, rgba(80,55,10,0.45) 50%, transparent 50.4%)",
-                }}
-              />
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(to top right, transparent 49.85%, rgba(255,245,210,0.5) 50%, transparent 50.15%), linear-gradient(to top left, transparent 49.85%, rgba(255,245,210,0.5) 50%, transparent 50.15%)",
-                  mixBlendMode: "overlay",
-                }}
-              />
-
-              {/* Caley logo near top of envelope */}
-              <div className="absolute inset-x-0 top-4 flex justify-center sm:top-5">
-                <div
-                  className="rounded-full px-3 py-1"
+              >
+                <img
+                  src={logo}
+                  alt="Caley Insurance"
+                  className="absolute inset-0 m-auto h-[78%] w-[78%] object-contain"
                   style={{
-                    background: "rgba(20,15,5,0.25)",
-                    backdropFilter: "blur(4px)",
-                    border: "1px solid rgba(255,240,200,0.18)",
+                    filter:
+                      "drop-shadow(0 1px 0 rgba(255,245,210,0.7)) drop-shadow(0 -1px 0 rgba(60,40,5,0.6)) brightness(0.92) contrast(1.05)",
+                    mixBlendMode: "multiply",
+                    opacity: 0.92,
+                  }}
+                />
+                {/* "8" mini emboss beneath logo */}
+                <span
+                  className="absolute left-1/2 top-[88%] -translate-x-1/2 text-[10px] font-bold tracking-[0.2em]"
+                  style={{
+                    fontFamily: "'Cinzel', serif",
+                    color: "#3a2608",
+                    textShadow: "0 1px 0 rgba(255,245,210,0.55)",
                   }}
                 >
-                  <img
-                    src={logo}
-                    alt="Caley Insurance"
-                    className="h-7 w-auto opacity-95 sm:h-9"
-                    style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.6))" }}
-                  />
-                </div>
+                  · 8 ·
+                </span>
               </div>
-
-              {/* Decorative monogram on body */}
-              <div
-                className="pointer-events-none absolute inset-0 flex items-center justify-center"
-                style={{
-                  fontFamily: "'Great Vibes', cursive",
-                  fontSize: "12rem",
-                  color: "rgba(80,55,10,0.18)",
-                  lineHeight: 1,
-                  paddingTop: "1.2rem",
-                }}
-              >
-                C
-              </div>
-
-              {/* TOP FLAP (triangle) — opens up */}
-              <div
-                className={`absolute inset-x-0 top-0 origin-top transition-transform duration-[1400ms] ease-[cubic-bezier(0.7,0,0.3,1)] ${
-                  opening ? "[transform:rotateX(-180deg)]" : ""
-                }`}
-                style={{
-                  height: "58%",
-                  background:
-                    "linear-gradient(180deg, #f5dc92 0%, #d8ad52 35%, #a87f29 75%, #7a5a14 100%)",
-                  clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                  boxShadow:
-                    "inset 0 -10px 24px rgba(60,40,5,0.5), inset 0 1px 0 rgba(255,245,210,0.55)",
-                  transformStyle: "preserve-3d",
-                  backfaceVisibility: "hidden",
-                }}
-              >
-                {/* Sheen across flap */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, rgba(255,245,210,0.35) 0%, transparent 50%)",
-                    clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                  }}
-                />
-                {/* Fine gold edge along V */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to bottom right, transparent 49.7%, rgba(255,245,210,0.7) 50%, transparent 50.3%), linear-gradient(to bottom left, transparent 49.7%, rgba(255,245,210,0.7) 50%, transparent 50.3%)",
-                    clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-                  }}
-                />
-              </div>
-
-              {/* Wax/medallion seal at flap close point */}
-              <div
-                className={`absolute left-1/2 top-[58%] z-20 -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ${
-                  opening ? "scale-0 opacity-0 rotate-45" : "scale-100 opacity-100"
-                }`}
-              >
-                <AnniversarySeal size={118} line1={t.sealLine1} line2={t.sealLine2} />
-              </div>
-
-              {/* Hover shine sweep */}
-              <span
-                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/45 to-transparent transition-transform duration-1000 group-hover:translate-x-full"
-                style={{ mixBlendMode: "overlay" }}
-              />
-
-              {/* Light burst on open */}
-              {opening && (
-                <div
-                  className="absolute inset-0 animate-[burst_1.4s_ease-out_forwards]"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 50% 55%, rgba(255,245,210,0.95), rgba(245,209,128,0.6) 28%, transparent 72%)",
-                  }}
-                />
-              )}
             </div>
+
+            {/* Soft sheen sweep on hover */}
+            <div
+              className="pointer-events-none absolute inset-0 z-30 overflow-hidden rounded-[6%]"
+              aria-hidden
+            >
+              <span className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition-all duration-1000 group-hover:left-full group-hover:opacity-100" />
+            </div>
+
+            {/* Light burst on open */}
+            {opening && (
+              <div
+                className="pointer-events-none absolute inset-0 z-40 animate-[envBurst_1.4s_ease-out_forwards]"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 50%, rgba(255,245,210,0.95), rgba(245,209,128,0.55) 28%, transparent 72%)",
+                  borderRadius: "8%",
+                }}
+              />
+            )}
           </div>
+
+          {/* Tap hint */}
+          <p
+            className={`mt-5 text-[9px] uppercase tracking-[0.45em] text-white/55 transition-opacity duration-500 sm:text-[10px] ${opening ? "opacity-0" : "opacity-100"}`}
+            style={{ fontFamily: "'Cinzel', serif" }}
+          >
+            {t.envelopeHint}
+          </p>
         </div>
 
+        {/* Copy block */}
         <h1
-          className={`mt-14 text-3xl font-medium leading-tight text-white sm:text-4xl md:text-5xl transition-all duration-700 ${opening ? "opacity-0 translate-y-4" : "opacity-100"}`}
+          className={`mt-10 text-3xl font-medium leading-tight text-white sm:mt-14 sm:text-4xl md:text-5xl transition-all duration-700 ${opening ? "opacity-0 translate-y-4" : "opacity-100"}`}
           style={{
             fontFamily: "'Cormorant Garamond', serif",
             letterSpacing: "0.01em",
@@ -225,7 +165,7 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
           {t.envelopeHeadline}
         </h1>
         <p
-          className={`mt-4 max-w-lg text-sm text-white/75 sm:text-base transition-all duration-700 ${opening ? "opacity-0" : "opacity-100"}`}
+          className={`mt-3 max-w-lg text-sm text-white/75 sm:mt-4 sm:text-base transition-all duration-700 ${opening ? "opacity-0" : "opacity-100"}`}
         >
           {t.envelopeSub}
         </p>
@@ -233,7 +173,7 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
         <button
           onClick={handleOpen}
           disabled={opening}
-          className={`mt-10 group relative overflow-hidden rounded-full px-10 py-3.5 text-[11px] font-semibold uppercase tracking-[0.4em] transition-all duration-500 ${
+          className={`group/btn mt-8 relative overflow-hidden rounded-full px-10 py-3.5 text-[11px] font-semibold uppercase tracking-[0.4em] transition-all duration-500 sm:mt-10 ${
             opening ? "opacity-0 translate-y-4" : "opacity-100 hover:scale-[1.04]"
           }`}
           style={{
@@ -246,15 +186,15 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
           }}
         >
           <span className="relative z-10">{t.openBtn}</span>
-          <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/55 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+          <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/55 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full" />
         </button>
       </div>
 
       <style>{`
-        @keyframes burst {
+        @keyframes envBurst {
           0% { opacity: 0; transform: scale(0.5); }
           40% { opacity: 1; }
-          100% { opacity: 0; transform: scale(2.6); }
+          100% { opacity: 0; transform: scale(2.8); }
         }
       `}</style>
     </section>
