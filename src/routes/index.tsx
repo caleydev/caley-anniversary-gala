@@ -13,7 +13,9 @@ import shield from "@/assets/caley-shield.webp";
 import {
   Calendar, Clock, MapPin, Users, Music, PartyPopper, Gift, Sparkles,
   UsersRound, Star, Trophy, Ticket, Award, Crown, Sprout, TrendingUp, Heart,
+  ChevronDown, CalendarPlus, Copy as CopyIcon, ExternalLink,
 } from "lucide-react";
+import { generateICSFile, openGoogleMaps, copyAddress } from "@/lib/actions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -261,16 +263,22 @@ function Hero({ t }: { t: Copy }) {
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-white/75 sm:text-base">
             {t.heroPara2}
           </p>
-
-          {/* Quick details strip */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs uppercase tracking-[0.3em] text-white/80 sm:text-sm">
-            <span className="flex items-center gap-2"><Calendar className="h-4 w-4 text-[var(--gold)]" />{t.dateV}</span>
-            <span className="hidden h-3 w-px bg-white/20 sm:block" />
-            <span className="flex items-center gap-2"><Clock className="h-4 w-4 text-[var(--gold)]" />{t.timeV}</span>
-            <span className="hidden h-3 w-px bg-white/20 sm:block" />
-            <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-[var(--gold)]" />Miami, FL</span>
-          </div>
         </Reveal>
+
+        {/* Scroll cue */}
+        <div className="mt-12 flex flex-col items-center justify-center gap-2 sm:mt-16">
+          <p
+            className="text-[10px] uppercase tracking-[0.45em] text-white/60 sm:text-xs"
+            style={{ fontFamily: "'Cinzel', serif" }}
+          >
+            {t.scrollCue}
+          </p>
+          <ChevronDown
+            className="h-5 w-5 text-[var(--gold)]"
+            style={{ animation: "scrollCueBounce 2.4s ease-in-out infinite" }}
+          />
+        </div>
+        <style>{`@keyframes scrollCueBounce { 0%,100% { transform: translateY(0); opacity: .6; } 50% { transform: translateY(8px); opacity: 1; } }`}</style>
       </Container>
     </section>
   );
