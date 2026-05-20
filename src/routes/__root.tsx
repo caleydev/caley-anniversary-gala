@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
 
@@ -111,6 +112,22 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Toaster
+        position="bottom-center"
+        theme="dark"
+        toastOptions={{
+          style: {
+            background: "linear-gradient(160deg, rgba(8,20,46,0.95), rgba(4,12,32,0.95))",
+            border: "1px solid rgba(214,168,79,0.5)",
+            color: "#fff4d2",
+            backdropFilter: "blur(20px)",
+            fontFamily: "'Cinzel', serif",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            fontSize: "12px",
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 }
