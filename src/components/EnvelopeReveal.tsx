@@ -1,6 +1,5 @@
 import { useState } from "react";
 import type { Copy } from "@/lib/i18n";
-import logo from "@/assets/caley-logo.webp";
 import envelopeImg from "@/assets/envelope-gold.png";
 import { LuxuryGalaBackground } from "./LuxuryGalaBackground";
 
@@ -10,11 +9,11 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
   const handleOpen = () => {
     if (opening) return;
     setOpening(true);
-    setTimeout(onOpen, 1500);
+    setTimeout(onOpen, 1400);
   };
 
   return (
-    <section className="relative z-10 flex min-h-screen items-center justify-center px-4 py-14 sm:py-16">
+    <section className="relative z-10 flex min-h-screen items-center justify-center overflow-hidden px-4 py-14 sm:py-16">
       <LuxuryGalaBackground />
 
       {/* Stage spotlight on envelope */}
@@ -22,14 +21,14 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 50% 55% at 50% 50%, rgba(255,225,160,0.20), transparent 65%)",
+            "radial-gradient(ellipse 55% 50% at 50% 50%, rgba(255,225,160,0.22), transparent 65%)",
         }}
       />
 
       <div className="relative flex w-full max-w-2xl flex-col items-center text-center">
         {/* Eyebrow */}
         <p
-          className={`mb-6 text-[10px] uppercase tracking-[0.6em] transition-all duration-700 sm:mb-8 sm:text-[11px] ${opening ? "opacity-0 -translate-y-4" : "opacity-100"}`}
+          className={`mb-8 text-[10px] uppercase tracking-[0.6em] transition-all duration-700 sm:mb-10 sm:text-[11px] ${opening ? "opacity-0 -translate-y-4" : "opacity-100"}`}
           style={{
             fontFamily: "'Cinzel', serif",
             background: "linear-gradient(180deg, #fff4cc, #d6a84f)",
@@ -41,29 +40,29 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
           {t.presents}
         </p>
 
-        {/* Envelope — the only clickable opener */}
+        {/* Envelope — the only clickable opener. Uploaded asset is the source of truth. */}
         <button
           type="button"
           aria-label={t.envelopeHint}
           onClick={handleOpen}
           disabled={opening}
-          className={`group relative block w-full max-w-[460px] cursor-pointer select-none rounded-[14px] outline-none transition-all duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)] focus-visible:ring-2 focus-visible:ring-[#f5d889]/70 ${
+          className={`group relative block w-full max-w-[520px] cursor-pointer select-none outline-none transition-all duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)] focus-visible:ring-2 focus-visible:ring-[#f5d889]/70 rounded-2xl ${
             opening
               ? "scale-[1.18] -translate-y-6 opacity-0"
               : "scale-100 translate-y-0 opacity-100 hover:scale-[1.03] animate-[envBreathe_5s_ease-in-out_infinite]"
           }`}
         >
-          {/* Realistic drop shadow under envelope */}
+          {/* Realistic drop shadow */}
           <div
-            className="pointer-events-none absolute left-1/2 -bottom-6 h-10 w-[78%] -translate-x-1/2 rounded-[50%] blur-3xl"
+            className="pointer-events-none absolute left-1/2 -bottom-4 h-10 w-[75%] -translate-x-1/2 rounded-[50%] blur-3xl"
             style={{ background: "rgba(0,0,0,0.85)" }}
           />
           <div
-            className="pointer-events-none absolute left-1/2 -bottom-2 h-4 w-[55%] -translate-x-1/2 rounded-[50%] blur-xl opacity-80"
+            className="pointer-events-none absolute left-1/2 bottom-0 h-4 w-[55%] -translate-x-1/2 rounded-[50%] blur-xl opacity-80"
             style={{ background: "rgba(214,168,79,0.45)" }}
           />
 
-          {/* Ambient gold glow that intensifies on hover */}
+          {/* Ambient gold glow */}
           <div
             className="pointer-events-none absolute -inset-10 rounded-[40%] opacity-55 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
             style={{
@@ -72,12 +71,11 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
             }}
           />
 
-          {/* The envelope image + overlays */}
           <div className="relative">
             <img
               src={envelopeImg}
-              alt=""
-              className="relative z-10 w-full select-none"
+              alt="Caley Insurance invitation envelope"
+              className="relative z-10 block w-full select-none"
               draggable={false}
               style={{
                 filter:
@@ -85,50 +83,12 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
               }}
             />
 
-            {/* Caley logo — embossed on the TOP part of the envelope */}
+            {/* Subtle sheen sweep on hover */}
             <div
-              className="pointer-events-none absolute left-1/2 z-20 -translate-x-1/2"
-              style={{ top: "18%", width: "26%" }}
-            >
-              <img
-                src={logo}
-                alt="Caley Insurance"
-                className="block w-full object-contain"
-                style={{
-                  filter:
-                    "drop-shadow(0 1px 0 rgba(255,245,210,0.55)) drop-shadow(0 -1px 0 rgba(60,40,5,0.55)) brightness(0.9) contrast(1.05) sepia(0.25) hue-rotate(-10deg) saturate(1.1)",
-                  mixBlendMode: "multiply",
-                  opacity: 0.85,
-                }}
-              />
-            </div>
-
-            {/* "8" — perfectly centered on the wax seal */}
-            <div
-              className="pointer-events-none absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-              style={{ width: "10%", aspectRatio: "1 / 1" }}
-            >
-              <span
-                className="leading-none"
-                style={{
-                  fontFamily: "'Cinzel', serif",
-                  fontWeight: 700,
-                  fontSize: "2.6vw",
-                  color: "#2a1b04",
-                  textShadow:
-                    "0 1px 0 rgba(255,245,210,0.7), 0 -1px 0 rgba(40,25,2,0.7)",
-                }}
-              >
-                8
-              </span>
-            </div>
-
-            {/* Soft sheen sweep on hover */}
-            <div
-              className="pointer-events-none absolute inset-0 z-30 overflow-hidden rounded-[6%]"
+              className="pointer-events-none absolute inset-0 z-30 overflow-hidden rounded-2xl"
               aria-hidden
             >
-              <span className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition-all duration-1000 group-hover:left-full group-hover:opacity-100" />
+              <span className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition-all duration-1000 group-hover:left-full group-hover:opacity-100" />
             </div>
 
             {/* Light burst on open */}
@@ -138,7 +98,7 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
                 style={{
                   background:
                     "radial-gradient(circle at 50% 50%, rgba(255,245,210,0.95), rgba(245,209,128,0.55) 28%, transparent 72%)",
-                  borderRadius: "8%",
+                  borderRadius: "10%",
                 }}
               />
             )}
@@ -147,7 +107,7 @@ export function EnvelopeReveal({ t, onOpen }: { t: Copy; onOpen: () => void }) {
 
         {/* Helper instruction */}
         <p
-          className={`mt-6 text-[10px] uppercase tracking-[0.45em] transition-opacity duration-500 sm:mt-7 sm:text-[11px] ${opening ? "opacity-0" : "opacity-80"}`}
+          className={`mt-7 text-[10px] uppercase tracking-[0.45em] transition-opacity duration-500 sm:mt-8 sm:text-[11px] ${opening ? "opacity-0" : "opacity-80"}`}
           style={{
             fontFamily: "'Cinzel', serif",
             background: "linear-gradient(180deg, #fff4cc, #d6a84f)",
