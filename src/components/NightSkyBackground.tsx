@@ -216,18 +216,22 @@ function GoldPopLayer({ stars }: { stars: Star[] }) {
 function ShootingStar({
   logo,
   variant,
+  startTop,
+  arc = "down",
   delay,
   interval,
 }: {
   logo: string;
   variant: "topLeftToBottomRight" | "topRightToBottomLeft";
+  startTop: number;
+  arc?: "down" | "up";
   delay: number;
   interval: number;
 }) {
   const isLR = variant === "topLeftToBottomRight";
-  const startTop = isLR ? 12 : 8;
-  const tiltDeg = isLR ? 18 : -18;
+  const tiltDeg = (isLR ? 18 : -18) * (arc === "up" ? -1 : 1);
   const xAnim = isLR ? "shootX_LR" : "shootX_RL";
+  const yAnim = arc === "up" ? "shootY_arcUp" : "shootY_arcDown";
 
   return (
     <div
@@ -243,8 +247,9 @@ function ShootingStar({
         {/* Inner = vertical arc (parabolic) */}
         <div
           data-ns-anim
-          style={{ animation: `shootY_arcDown ${interval}s ease-in-out ${delay}s infinite` }}
+          style={{ animation: `${yAnim} ${interval}s ease-in-out ${delay}s infinite` }}
         >
+
           <div
             className="relative flex items-center"
             style={{ transform: `rotate(${tiltDeg}deg)`, transformOrigin: "center" }}
