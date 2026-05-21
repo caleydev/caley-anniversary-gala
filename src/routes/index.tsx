@@ -4,6 +4,7 @@ import { copy, type Lang, type Copy } from "@/lib/i18n";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { EnvelopeReveal } from "@/components/EnvelopeReveal";
 import { FireworksBackground } from "@/components/FireworksBackground";
+import { NightSkyBackground } from "@/components/NightSkyBackground";
 import { ParticleField } from "@/components/ParticleField";
 import { FloatingLogo } from "@/components/FloatingLogo";
 import { Countdown } from "@/components/Countdown";
@@ -41,7 +42,9 @@ function Page() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden text-white">
-      <BallroomBackground />
+      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
+        <NightSkyBackground />
+      </div>
       <FireworksBackground intensity={isOpened ? 0.4 : 0.18} />
       <ParticleField count={isOpened ? 36 : 16} />
       <LanguageToggle lang={lang} setLang={setLang} />
