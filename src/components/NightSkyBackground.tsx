@@ -94,12 +94,25 @@ export function NightSkyBackground() {
             box-shadow: 0 0 10px rgba(245,209,128,0.6);
           }
         }
-        @keyframes shootingStar {
-          0% { opacity: 0; transform: translate(0, 0) rotate(var(--ang, 20deg)); }
-          4% { opacity: 1; }
-          18% { opacity: 1; }
-          22% { opacity: 0; transform: translate(140vw, 0) rotate(var(--ang, 20deg)); }
-          100% { opacity: 0; transform: translate(140vw, 0) rotate(var(--ang, 20deg)); }
+        /* Curved parabolic paths — outer translates X, inner translates Y */
+        @keyframes shootX_LR {
+          0%   { transform: translateX(-22vw); opacity: 0; }
+          6%   { opacity: 0.75; }
+          45%  { opacity: 0.75; }
+          70%  { transform: translateX(118vw); opacity: 0; }
+          100% { transform: translateX(118vw); opacity: 0; }
+        }
+        @keyframes shootY_arcDown {
+          0%   { transform: translateY(-4vh); }
+          50%  { transform: translateY(8vh); }
+          100% { transform: translateY(34vh); }
+        }
+        @keyframes shootX_RL {
+          0%   { transform: translateX(22vw); opacity: 0; }
+          6%   { opacity: 0.7; }
+          45%  { opacity: 0.7; }
+          70%  { transform: translateX(-118vw); opacity: 0; }
+          100% { transform: translateX(-118vw); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) {
           [data-ns-anim] { animation: none !important; }
