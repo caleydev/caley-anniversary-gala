@@ -55,9 +55,11 @@ export function NightSkyBackground() {
       {/* Subtle gold dust */}
       <StarLayer stars={goldDust} colorMix={["#f5d889", "#d6a84f"]} blurPx={0.3} baseDur={5.2} gold />
 
-      {/* Caley-branded shooting stars (staggered, occasional, curved path) */}
-      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" delay={4} interval={11} />
-      <ShootingStar logo={caleyLogo} variant="topRightToBottomLeft" delay={13} interval={14} />
+      {/* Caley-branded shooting stars — staggered, covering the whole sky */}
+      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={8}  arc="down" delay={3}  interval={13} />
+      <ShootingStar logo={caleyLogo} variant="topRightToBottomLeft" startTop={68} arc="up"   delay={9}  interval={15} />
+      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={45} arc="down" delay={17} interval={17} />
+
 
 
       {/* Vignette */}
