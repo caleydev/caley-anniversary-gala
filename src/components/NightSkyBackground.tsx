@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import caleyLogo from "@/assets/caley-logo.webp";
+import caleyLogo from "@/assets/caley-shield-shooting.webp";
 
 /**
  * Premium luxury night sky background:
