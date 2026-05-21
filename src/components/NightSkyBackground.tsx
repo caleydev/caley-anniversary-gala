@@ -224,6 +224,42 @@ function GoldPopLayer({ stars }: { stars: Star[] }) {
   );
 }
 
+function LogoStarLayer({ stars, logo }: { stars: Star[]; logo: string }) {
+  return (
+    <div className="absolute inset-0 z-[1]">
+      {stars.map((s, i) => {
+        // Bias logos away from the horizontal center band (where envelope lives)
+        const left = s.left < 50 ? s.left * 0.6 : 100 - (100 - s.left) * 0.6;
+        return (
+          <img
+            key={i}
+            src={logo}
+            alt=""
+            aria-hidden
+            data-ns-anim
+            className="absolute select-none"
+            draggable={false}
+            style={
+              {
+                top: `${s.top}%`,
+                left: `${left}%`,
+                width: s.size,
+                height: "auto",
+                opacity: 0.18,
+                mixBlendMode: "screen",
+                filter:
+                  "drop-shadow(0 0 4px rgba(180,210,255,0.55)) drop-shadow(0 0 8px rgba(245,209,128,0.35))",
+                animation: `logoStarTwinkle ${5 + (i % 4) * 1.3}s ease-in-out ${s.delay}s infinite`,
+              } as React.CSSProperties
+            }
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+
 function ShootingStar({
   logo,
   variant,
