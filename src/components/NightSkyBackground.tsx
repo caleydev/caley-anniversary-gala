@@ -1,17 +1,18 @@
 import { useMemo } from "react";
+import caleyLogo from "@/assets/caley-logo.webp";
 
 /**
  * Premium luxury night sky background:
- * deep midnight navy, realistic layered stars (varying size/brightness),
- * subtle nebula haze, faint gold dust, soft vignette.
- * No cartoon shapes, no plants, no balloons.
+ * deep midnight navy, dense layered stars with realistic twinkle,
+ * occasional gold "pop" stars, subtle nebula haze, vignette,
+ * and an occasional Caley-branded shooting-star sweeping across.
  */
 export function NightSkyBackground() {
-  // Three layers of stars for depth
-  const farStars = useMemo(() => makeStars(220, 7.1, 0.4, 1.2), []);
-  const midStars = useMemo(() => makeStars(90, 13.3, 0.9, 2.0), []);
-  const nearStars = useMemo(() => makeStars(28, 19.7, 1.6, 2.8), []);
-  const goldDust = useMemo(() => makeStars(40, 27.3, 0.6, 1.4), []);
+  const farStars = useMemo(() => makeStars(420, 7.1, 0.4, 1.2), []);
+  const midStars = useMemo(() => makeStars(180, 13.3, 0.9, 2.0), []);
+  const nearStars = useMemo(() => makeStars(55, 19.7, 1.6, 2.8), []);
+  const goldPopStars = useMemo(() => makeStars(28, 23.9, 1.2, 2.4), []);
+  const goldDust = useMemo(() => makeStars(60, 27.3, 0.5, 1.3), []);
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
@@ -34,7 +35,7 @@ export function NightSkyBackground() {
         }}
       />
 
-      {/* Soft warm glow upper center (distant city/light) */}
+      {/* Soft warm distant glow at top */}
       <div
         className="absolute inset-x-0 top-0 h-[55%] opacity-70"
         style={{
@@ -43,13 +44,20 @@ export function NightSkyBackground() {
         }}
       />
 
-      {/* Star layers */}
-      <StarLayer stars={farStars} colorMix={["#cfd9ee", "#e8eefb"]} blurPx={0} baseDur={4.5} />
-      <StarLayer stars={midStars} colorMix={["#ffffff", "#f3f6ff"]} blurPx={0} baseDur={3.6} withGlow />
-      <StarLayer stars={nearStars} colorMix={["#ffffff", "#fff5d0"]} blurPx={0} baseDur={3.0} withGlow strong />
+      {/* Star layers — dense, layered for depth */}
+      <StarLayer stars={farStars} colorMix={["#cfd9ee", "#e8eefb"]} baseDur={4.5} />
+      <StarLayer stars={midStars} colorMix={["#ffffff", "#f3f6ff"]} baseDur={3.6} withGlow />
+      <StarLayer stars={nearStars} colorMix={["#ffffff", "#fff5d0"]} baseDur={3.0} withGlow strong />
+
+      {/* Gold "pop" stars — occasional, elegant celebration accents */}
+      <GoldPopLayer stars={goldPopStars} />
 
       {/* Subtle gold dust */}
       <StarLayer stars={goldDust} colorMix={["#f5d889", "#d6a84f"]} blurPx={0.3} baseDur={5.2} gold />
+
+      {/* Caley-branded shooting stars (staggered, occasional) */}
+      <ShootingStar logo={caleyLogo} startTop={18} startLeft={-12} angle={22} duration={6} delay={3} interval={18} />
+      <ShootingStar logo={caleyLogo} startTop={62} startLeft={-10} angle={-14} duration={7} delay={11} interval={22} />
 
       {/* Vignette */}
       <div
@@ -62,8 +70,38 @@ export function NightSkyBackground() {
 
       <style>{`
         @keyframes nsTwinkle {
-          0%, 100% { opacity: var(--o-min, 0.35); }
-          50% { opacity: var(--o-max, 1); }
+          0%, 100% { opacity: var(--o-min, 0.35); transform: scale(1); }
+          50% { opacity: var(--o-max, 1); transform: scale(1.15); }
+        }
+        @keyframes goldPop {
+          0%, 88%, 100% {
+            opacity: 0.3;
+            transform: scale(0.9);
+            background: #ffffff;
+            box-shadow: 0 0 4px rgba(220,230,255,0.4);
+          }
+          92% {
+            opacity: 1;
+            transform: scale(1.8);
+            background: #ffe9a8;
+            box-shadow: 0 0 18px rgba(245,209,128,0.95), 0 0 36px rgba(245,209,128,0.55);
+          }
+          96% {
+            opacity: 0.8;
+            transform: scale(1.3);
+            background: #f5d889;
+            box-shadow: 0 0 10px rgba(245,209,128,0.6);
+          }
+        }
+        @keyframes shootingStar {
+          0% { opacity: 0; transform: translate(0, 0) rotate(var(--ang, 20deg)); }
+          4% { opacity: 1; }
+          18% { opacity: 1; }
+          22% { opacity: 0; transform: translate(140vw, 0) rotate(var(--ang, 20deg)); }
+          100% { opacity: 0; transform: translate(140vw, 0) rotate(var(--ang, 20deg)); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [data-ns-anim] { animation: none !important; }
         }
       `}</style>
     </div>
@@ -115,6 +153,7 @@ function StarLayer({
         return (
           <span
             key={i}
+            data-ns-anim
             className="absolute rounded-full"
             style={
               {
@@ -133,6 +172,110 @@ function StarLayer({
           />
         );
       })}
+    </div>
+  );
+}
+
+function GoldPopLayer({ stars }: { stars: Star[] }) {
+  return (
+    <div className="absolute inset-0">
+      {stars.map((s, i) => (
+        <span
+          key={i}
+          data-ns-anim
+          className="absolute rounded-full"
+          style={{
+            top: `${s.top}%`,
+            left: `${s.left}%`,
+            width: s.size,
+            height: s.size,
+            animation: `goldPop ${10 + (i % 6) * 1.5}s ease-in-out ${s.delay * 2}s infinite`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ShootingStar({
+  logo,
+  startTop,
+  startLeft,
+  angle,
+  duration,
+  delay,
+  interval,
+}: {
+  logo: string;
+  startTop: number;
+  startLeft: number;
+  angle: number;
+  duration: number;
+  delay: number;
+  interval: number;
+}) {
+  // Wrapper carries the path/translation animation; inner content holds logo + trail
+  return (
+    <div
+      data-ns-anim
+      className="absolute"
+      style={
+        {
+          top: `${startTop}%`,
+          left: `${startLeft}%`,
+          width: "1px",
+          height: "1px",
+          "--ang": `${angle}deg`,
+          animation: `shootingStar ${interval}s ease-in-out ${delay}s infinite`,
+        } as React.CSSProperties
+      }
+    >
+      <div
+        className="relative flex items-center"
+        style={{
+          transform: `rotate(${angle}deg)`,
+          transformOrigin: "left center",
+        }}
+      >
+        {/* Trail */}
+        <div
+          className="absolute right-full top-1/2 -translate-y-1/2"
+          style={{
+            width: 220,
+            height: 2,
+            background:
+              "linear-gradient(90deg, rgba(245,209,128,0) 0%, rgba(180,210,255,0.55) 55%, rgba(245,209,128,0.95) 100%)",
+            filter: "blur(0.6px)",
+            borderRadius: 2,
+            boxShadow: "0 0 12px rgba(180,210,255,0.5)",
+          }}
+        />
+        <div
+          className="absolute right-full top-1/2 -translate-y-1/2"
+          style={{
+            width: 90,
+            height: 6,
+            background:
+              "linear-gradient(90deg, rgba(245,209,128,0) 0%, rgba(245,209,128,0.5) 100%)",
+            filter: "blur(4px)",
+            borderRadius: 8,
+          }}
+        />
+        {/* Caley logo (small, glowing) */}
+        <img
+          src={logo}
+          alt=""
+          aria-hidden
+          className="block"
+          style={{
+            width: 36,
+            height: "auto",
+            opacity: 0.85,
+            filter:
+              "drop-shadow(0 0 6px rgba(245,209,128,0.9)) drop-shadow(0 0 14px rgba(180,210,255,0.55))",
+          }}
+        />
+      </div>
     </div>
   );
 }
