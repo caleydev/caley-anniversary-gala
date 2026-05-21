@@ -42,7 +42,9 @@ function Page() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden text-white">
-      <BallroomBackground />
+      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
+        <NightSkyBackground />
+      </div>
       <FireworksBackground intensity={isOpened ? 0.4 : 0.18} />
       <ParticleField count={isOpened ? 36 : 16} />
       <LanguageToggle lang={lang} setLang={setLang} />
