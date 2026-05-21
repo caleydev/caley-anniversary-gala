@@ -57,10 +57,14 @@ export function NightSkyBackground() {
       {/* Subtle gold dust */}
       <StarLayer stars={goldDust} colorMix={["#f5d889", "#d6a84f"]} blurPx={0.3} baseDur={5.2} gold />
 
-      {/* Caley-branded shooting stars — staggered, covering the whole sky */}
-      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={8}  arc="down" delay={3}  interval={13} />
-      <ShootingStar logo={caleyLogo} variant="topRightToBottomLeft" startTop={68} arc="up"   delay={9}  interval={15} />
-      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={45} arc="down" delay={17} interval={17} />
+      {/* Subtle Caley-logo stars sprinkled in the background */}
+      <LogoStarLayer stars={logoStars} logo={caleyLogo} />
+
+      {/* Caley-branded shooting stars — first one almost immediate */}
+      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={10} arc="down" delay={0.3} interval={7} />
+      <ShootingStar logo={caleyLogo} variant="topRightToBottomLeft" startTop={62} arc="up"   delay={4}   interval={9} />
+      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={40} arc="down" delay={8}   interval={11} />
+
 
 
 
