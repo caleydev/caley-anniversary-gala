@@ -13,6 +13,8 @@ export function NightSkyBackground() {
   const nearStars = useMemo(() => makeStars(55, 19.7, 1.6, 2.8), []);
   const goldPopStars = useMemo(() => makeStars(28, 23.9, 1.2, 2.4), []);
   const goldDust = useMemo(() => makeStars(60, 27.3, 0.5, 1.3), []);
+  const logoStars = useMemo(() => makeStars(14, 31.7, 10, 20), []);
+
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
