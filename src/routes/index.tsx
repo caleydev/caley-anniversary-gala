@@ -4,6 +4,7 @@ import { copy, type Lang, type Copy } from "@/lib/i18n";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { EnvelopeReveal } from "@/components/EnvelopeReveal";
 import { FireworksBackground } from "@/components/FireworksBackground";
+import { NightSkyBackground } from "@/components/NightSkyBackground";
 import { ParticleField } from "@/components/ParticleField";
 import { FloatingLogo } from "@/components/FloatingLogo";
 import { Countdown } from "@/components/Countdown";
