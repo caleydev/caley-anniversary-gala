@@ -13,6 +13,8 @@ export function NightSkyBackground() {
   const nearStars = useMemo(() => makeStars(55, 19.7, 1.6, 2.8), []);
   const goldPopStars = useMemo(() => makeStars(28, 23.9, 1.2, 2.4), []);
   const goldDust = useMemo(() => makeStars(60, 27.3, 0.5, 1.3), []);
+  const logoStars = useMemo(() => makeStars(14, 31.7, 10, 20), []);
+
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
@@ -55,10 +57,14 @@ export function NightSkyBackground() {
       {/* Subtle gold dust */}
       <StarLayer stars={goldDust} colorMix={["#f5d889", "#d6a84f"]} blurPx={0.3} baseDur={5.2} gold />
 
-      {/* Caley-branded shooting stars — staggered, covering the whole sky */}
-      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={8}  arc="down" delay={3}  interval={13} />
-      <ShootingStar logo={caleyLogo} variant="topRightToBottomLeft" startTop={68} arc="up"   delay={9}  interval={15} />
-      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={45} arc="down" delay={17} interval={17} />
+      {/* Subtle Caley-logo stars sprinkled in the background */}
+      <LogoStarLayer stars={logoStars} logo={caleyLogo} />
+
+      {/* Caley-branded shooting stars — first one almost immediate */}
+      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={10} arc="down" delay={0.3} interval={7} />
+      <ShootingStar logo={caleyLogo} variant="topRightToBottomLeft" startTop={62} arc="up"   delay={4}   interval={9} />
+      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={40} arc="down" delay={8}   interval={11} />
+
 
 
 
@@ -75,6 +81,10 @@ export function NightSkyBackground() {
         @keyframes nsTwinkle {
           0%, 100% { opacity: var(--o-min, 0.35); transform: scale(1); }
           50% { opacity: var(--o-max, 1); transform: scale(1.15); }
+        }
+        @keyframes logoStarTwinkle {
+          0%, 100% { opacity: 0.14; transform: scale(0.95); }
+          50% { opacity: 0.42; transform: scale(1.08); }
         }
         @keyframes goldPop {
           0%, 88%, 100% {
@@ -217,6 +227,42 @@ function GoldPopLayer({ stars }: { stars: Star[] }) {
     </div>
   );
 }
+
+function LogoStarLayer({ stars, logo }: { stars: Star[]; logo: string }) {
+  return (
+    <div className="absolute inset-0 z-[1]">
+      {stars.map((s, i) => {
+        // Bias logos away from the horizontal center band (where envelope lives)
+        const left = s.left < 50 ? s.left * 0.6 : 100 - (100 - s.left) * 0.6;
+        return (
+          <img
+            key={i}
+            src={logo}
+            alt=""
+            aria-hidden
+            data-ns-anim
+            className="absolute select-none"
+            draggable={false}
+            style={
+              {
+                top: `${s.top}%`,
+                left: `${left}%`,
+                width: s.size,
+                height: "auto",
+                opacity: 0.18,
+                mixBlendMode: "screen",
+                filter:
+                  "drop-shadow(0 0 4px rgba(180,210,255,0.55)) drop-shadow(0 0 8px rgba(245,209,128,0.35))",
+                animation: `logoStarTwinkle ${5 + (i % 4) * 1.3}s ease-in-out ${s.delay}s infinite`,
+              } as React.CSSProperties
+            }
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 
 function ShootingStar({
   logo,
