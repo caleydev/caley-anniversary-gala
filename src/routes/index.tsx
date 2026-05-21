@@ -9,7 +9,7 @@ import { ParticleField } from "@/components/ParticleField";
 import { FloatingLogo } from "@/components/FloatingLogo";
 import { Countdown } from "@/components/Countdown";
 import { Reveal } from "@/components/Reveal";
-import { SloganSpotlight } from "@/components/SloganSpotlight";
+
 import logo from "@/assets/caley-logo.webp";
 import shield from "@/assets/caley-shield.webp";
 import {
@@ -58,7 +58,6 @@ function Page() {
             <Hero t={t} />
             <BrandQuote t={t} />
             <EventDetails t={t} />
-            <SloganSpotlight t={t} />
             <Expect t={t} />
             <Prizes t={t} />
             <Story t={t} />
