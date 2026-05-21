@@ -82,6 +82,10 @@ export function NightSkyBackground() {
           0%, 100% { opacity: var(--o-min, 0.35); transform: scale(1); }
           50% { opacity: var(--o-max, 1); transform: scale(1.15); }
         }
+        @keyframes logoStarTwinkle {
+          0%, 100% { opacity: 0.14; transform: scale(0.95); }
+          50% { opacity: 0.42; transform: scale(1.08); }
+        }
         @keyframes goldPop {
           0%, 88%, 100% {
             opacity: 0.3;
