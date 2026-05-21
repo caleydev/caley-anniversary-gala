@@ -105,9 +105,14 @@ export function NightSkyBackground() {
           100% { transform: translateX(118vw); opacity: 0; }
         }
         @keyframes shootY_arcDown {
-          0%   { transform: translateY(-4vh); }
-          50%  { transform: translateY(8vh); }
-          100% { transform: translateY(34vh); }
+          0%   { transform: translateY(-8vh); }
+          50%  { transform: translateY(14vh); }
+          100% { transform: translateY(48vh); }
+        }
+        @keyframes shootY_arcUp {
+          0%   { transform: translateY(8vh); }
+          50%  { transform: translateY(-14vh); }
+          100% { transform: translateY(-48vh); }
         }
         @keyframes shootX_RL {
           0%   { transform: translateX(22vw); opacity: 0; }
