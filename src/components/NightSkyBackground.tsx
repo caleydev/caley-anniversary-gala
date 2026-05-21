@@ -55,9 +55,10 @@ export function NightSkyBackground() {
       {/* Subtle gold dust */}
       <StarLayer stars={goldDust} colorMix={["#f5d889", "#d6a84f"]} blurPx={0.3} baseDur={5.2} gold />
 
-      {/* Caley-branded shooting stars (staggered, occasional) */}
-      <ShootingStar logo={caleyLogo} startTop={18} startLeft={-12} angle={22} duration={6} delay={3} interval={18} />
-      <ShootingStar logo={caleyLogo} startTop={62} startLeft={-10} angle={-14} duration={7} delay={11} interval={22} />
+      {/* Caley-branded shooting stars (staggered, occasional, curved path) */}
+      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" delay={4} interval={11} />
+      <ShootingStar logo={caleyLogo} variant="topRightToBottomLeft" delay={13} interval={14} />
+
 
       {/* Vignette */}
       <div
@@ -93,12 +94,25 @@ export function NightSkyBackground() {
             box-shadow: 0 0 10px rgba(245,209,128,0.6);
           }
         }
-        @keyframes shootingStar {
-          0% { opacity: 0; transform: translate(0, 0) rotate(var(--ang, 20deg)); }
-          4% { opacity: 1; }
-          18% { opacity: 1; }
-          22% { opacity: 0; transform: translate(140vw, 0) rotate(var(--ang, 20deg)); }
-          100% { opacity: 0; transform: translate(140vw, 0) rotate(var(--ang, 20deg)); }
+        /* Curved parabolic paths — outer translates X, inner translates Y */
+        @keyframes shootX_LR {
+          0%   { transform: translateX(-22vw); opacity: 0; }
+          6%   { opacity: 0.75; }
+          45%  { opacity: 0.75; }
+          70%  { transform: translateX(118vw); opacity: 0; }
+          100% { transform: translateX(118vw); opacity: 0; }
+        }
+        @keyframes shootY_arcDown {
+          0%   { transform: translateY(-4vh); }
+          50%  { transform: translateY(8vh); }
+          100% { transform: translateY(34vh); }
+        }
+        @keyframes shootX_RL {
+          0%   { transform: translateX(22vw); opacity: 0; }
+          6%   { opacity: 0.7; }
+          45%  { opacity: 0.7; }
+          70%  { transform: translateX(-118vw); opacity: 0; }
+          100% { transform: translateX(-118vw); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) {
           [data-ns-anim] { animation: none !important; }
@@ -199,82 +213,97 @@ function GoldPopLayer({ stars }: { stars: Star[] }) {
 
 function ShootingStar({
   logo,
-  startTop,
-  startLeft,
-  angle,
-  duration,
+  variant,
   delay,
   interval,
 }: {
   logo: string;
-  startTop: number;
-  startLeft: number;
-  angle: number;
-  duration: number;
+  variant: "topLeftToBottomRight" | "topRightToBottomLeft";
   delay: number;
   interval: number;
 }) {
-  // Wrapper carries the path/translation animation; inner content holds logo + trail
+  const isLR = variant === "topLeftToBottomRight";
+  const startTop = isLR ? 12 : 8;
+  const tiltDeg = isLR ? 18 : -18;
+  const xAnim = isLR ? "shootX_LR" : "shootX_RL";
+
   return (
     <div
-      data-ns-anim
-      className="absolute"
-      style={
-        {
-          top: `${startTop}%`,
-          left: `${startLeft}%`,
-          width: "1px",
-          height: "1px",
-          "--ang": `${angle}deg`,
-          animation: `shootingStar ${interval}s ease-in-out ${delay}s infinite`,
-        } as React.CSSProperties
-      }
+      className="pointer-events-none absolute z-0"
+      style={{ top: `${startTop}%`, left: 0, right: 0, height: 0 }}
     >
+      {/* Outer = horizontal traverse */}
       <div
-        className="relative flex items-center"
-        style={{
-          transform: `rotate(${angle}deg)`,
-          transformOrigin: "left center",
-        }}
+        data-ns-anim
+        className="absolute left-0 top-0"
+        style={{ animation: `${xAnim} ${interval}s ease-in-out ${delay}s infinite` }}
       >
-        {/* Trail */}
+        {/* Inner = vertical arc (parabolic) */}
         <div
-          className="absolute right-full top-1/2 -translate-y-1/2"
-          style={{
-            width: 220,
-            height: 2,
-            background:
-              "linear-gradient(90deg, rgba(245,209,128,0) 0%, rgba(180,210,255,0.55) 55%, rgba(245,209,128,0.95) 100%)",
-            filter: "blur(0.6px)",
-            borderRadius: 2,
-            boxShadow: "0 0 12px rgba(180,210,255,0.5)",
-          }}
-        />
-        <div
-          className="absolute right-full top-1/2 -translate-y-1/2"
-          style={{
-            width: 90,
-            height: 6,
-            background:
-              "linear-gradient(90deg, rgba(245,209,128,0) 0%, rgba(245,209,128,0.5) 100%)",
-            filter: "blur(4px)",
-            borderRadius: 8,
-          }}
-        />
-        {/* Caley logo (small, glowing) */}
-        <img
-          src={logo}
-          alt=""
-          aria-hidden
-          className="block"
-          style={{
-            width: 36,
-            height: "auto",
-            opacity: 0.85,
-            filter:
-              "drop-shadow(0 0 6px rgba(245,209,128,0.9)) drop-shadow(0 0 14px rgba(180,210,255,0.55))",
-          }}
-        />
+          data-ns-anim
+          style={{ animation: `shootY_arcDown ${interval}s ease-in-out ${delay}s infinite` }}
+        >
+          <div
+            className="relative flex items-center"
+            style={{ transform: `rotate(${tiltDeg}deg)`, transformOrigin: "center" }}
+          >
+            {/* Long thin trail */}
+            <div
+              className="absolute right-full top-1/2 -translate-y-1/2"
+              style={{
+                width: 260,
+                height: 2,
+                background:
+                  "linear-gradient(90deg, rgba(245,209,128,0) 0%, rgba(180,210,255,0.55) 55%, rgba(245,209,128,0.95) 100%)",
+                filter: "blur(0.6px)",
+                borderRadius: 2,
+                boxShadow: "0 0 12px rgba(180,210,255,0.5)",
+              }}
+            />
+            {/* Soft trail glow */}
+            <div
+              className="absolute right-full top-1/2 -translate-y-1/2"
+              style={{
+                width: 110,
+                height: 8,
+                background:
+                  "linear-gradient(90deg, rgba(245,209,128,0) 0%, rgba(245,209,128,0.55) 100%)",
+                filter: "blur(5px)",
+                borderRadius: 8,
+              }}
+            />
+            {/* Sparkle particles trailing behind */}
+            {[0, 1, 2, 3].map((i) => (
+              <span
+                key={i}
+                className="absolute top-1/2 -translate-y-1/2 rounded-full"
+                style={{
+                  right: `${30 + i * 22}px`,
+                  width: 2 + (i % 2),
+                  height: 2 + (i % 2),
+                  background: i % 2 === 0 ? "#fff5d0" : "#cfe0ff",
+                  opacity: 0.6 - i * 0.1,
+                  boxShadow: "0 0 6px rgba(245,209,128,0.7)",
+                }}
+              />
+            ))}
+            {/* Caley logo as the shooting-star head */}
+            <img
+              src={logo}
+              alt=""
+              aria-hidden
+              className="block"
+              style={{
+                width: 32,
+                height: "auto",
+                opacity: 0.7,
+                transform: isLR ? undefined : "scaleX(-1)",
+                filter:
+                  "drop-shadow(0 0 6px rgba(245,209,128,0.9)) drop-shadow(0 0 14px rgba(180,210,255,0.55))",
+              }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
