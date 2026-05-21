@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import caleyLogo from "@/assets/caley-logo.webp";
+import caleyLogo from "@/assets/caley-shield-shooting.webp";
 
 /**
  * Premium luxury night sky background:
@@ -55,9 +55,11 @@ export function NightSkyBackground() {
       {/* Subtle gold dust */}
       <StarLayer stars={goldDust} colorMix={["#f5d889", "#d6a84f"]} blurPx={0.3} baseDur={5.2} gold />
 
-      {/* Caley-branded shooting stars (staggered, occasional, curved path) */}
-      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" delay={4} interval={11} />
-      <ShootingStar logo={caleyLogo} variant="topRightToBottomLeft" delay={13} interval={14} />
+      {/* Caley-branded shooting stars — staggered, covering the whole sky */}
+      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={8}  arc="down" delay={3}  interval={13} />
+      <ShootingStar logo={caleyLogo} variant="topRightToBottomLeft" startTop={68} arc="up"   delay={9}  interval={15} />
+      <ShootingStar logo={caleyLogo} variant="topLeftToBottomRight" startTop={45} arc="down" delay={17} interval={17} />
+
 
 
       {/* Vignette */}
@@ -103,9 +105,14 @@ export function NightSkyBackground() {
           100% { transform: translateX(118vw); opacity: 0; }
         }
         @keyframes shootY_arcDown {
-          0%   { transform: translateY(-4vh); }
-          50%  { transform: translateY(8vh); }
-          100% { transform: translateY(34vh); }
+          0%   { transform: translateY(-8vh); }
+          50%  { transform: translateY(14vh); }
+          100% { transform: translateY(48vh); }
+        }
+        @keyframes shootY_arcUp {
+          0%   { transform: translateY(8vh); }
+          50%  { transform: translateY(-14vh); }
+          100% { transform: translateY(-48vh); }
         }
         @keyframes shootX_RL {
           0%   { transform: translateX(22vw); opacity: 0; }
@@ -214,18 +221,22 @@ function GoldPopLayer({ stars }: { stars: Star[] }) {
 function ShootingStar({
   logo,
   variant,
+  startTop,
+  arc = "down",
   delay,
   interval,
 }: {
   logo: string;
   variant: "topLeftToBottomRight" | "topRightToBottomLeft";
+  startTop: number;
+  arc?: "down" | "up";
   delay: number;
   interval: number;
 }) {
   const isLR = variant === "topLeftToBottomRight";
-  const startTop = isLR ? 12 : 8;
-  const tiltDeg = isLR ? 18 : -18;
+  const tiltDeg = (isLR ? 18 : -18) * (arc === "up" ? -1 : 1);
   const xAnim = isLR ? "shootX_LR" : "shootX_RL";
+  const yAnim = arc === "up" ? "shootY_arcUp" : "shootY_arcDown";
 
   return (
     <div
@@ -241,8 +252,9 @@ function ShootingStar({
         {/* Inner = vertical arc (parabolic) */}
         <div
           data-ns-anim
-          style={{ animation: `shootY_arcDown ${interval}s ease-in-out ${delay}s infinite` }}
+          style={{ animation: `${yAnim} ${interval}s ease-in-out ${delay}s infinite` }}
         >
+
           <div
             className="relative flex items-center"
             style={{ transform: `rotate(${tiltDeg}deg)`, transformOrigin: "center" }}
