@@ -44,15 +44,9 @@ export const copy = {
     placeV1: "18750 SW 160 ST",
     placeV2: "Miami, FL 33187",
     guestsLine: "Cada invitado podrá asistir con un acompañante.",
-    saveDateBtn: "Guardar fecha",
     openMapsBtn: "Ver en Maps",
     copyAddressBtn: "Copiar dirección",
     addressCopiedToast: "Dirección copiada",
-
-    // Calendar
-    icsTitle: "Caley Insurance - Gran Celebración 8.º Aniversario",
-    icsDescription:
-      "Una noche especial para celebrar 8 años de historia, dedicación y éxitos compartidos de Caley Insurance.",
 
     // Expect
     expectEyebrow: "Lo que te espera",
@@ -69,7 +63,7 @@ export const copy = {
       },
       {
         t: "Premios y sorpresas",
-        d: "Premios, rifas y detalles especiales durante toda la noche.",
+        d: "Premios, sorpresas y detalles especiales durante toda la noche.",
       },
       {
         t: "Grandes momentos",
@@ -87,7 +81,7 @@ export const copy = {
 
     // Prizes
     prizesEyebrow: "Toda la noche",
-    prizesTitle: "Premios, rifas y grandes sorpresas",
+    prizesTitle: "Premios, sorpresas y grandes momentos",
     prizesSub:
       "Una noche pensada para celebrar y agradecer a quienes han sido parte de nuestra historia.",
     prizeFeatured: {
@@ -96,7 +90,7 @@ export const copy = {
       tag: "Momento estelar",
     },
     prizes: [
-      "Rifas durante la noche",
+      "Sorpresas durante la noche",
       "Sorpresas para invitados",
       "Reconocimientos",
     ],
@@ -174,14 +168,9 @@ export const copy = {
     placeV1: "18750 SW 160 ST",
     placeV2: "Miami, FL 33187",
     guestsLine: "Each guest may attend with one companion.",
-    saveDateBtn: "Save the Date",
     openMapsBtn: "Open in Maps",
     copyAddressBtn: "Copy Address",
     addressCopiedToast: "Address copied",
-
-    icsTitle: "Caley Insurance - 8th Anniversary Celebration",
-    icsDescription:
-      "A special night to celebrate 8 years of history, dedication, and shared success at Caley Insurance.",
 
     expectEyebrow: "What to Expect",
     expectTitle: "A Night Built to Enjoy",
@@ -197,7 +186,7 @@ export const copy = {
       },
       {
         t: "Prizes and Surprises",
-        d: "Prizes, raffles, and special touches throughout the night.",
+        d: "Prizes, surprises, and special moments throughout the night.",
       },
       {
         t: "Great Moments",
@@ -214,7 +203,7 @@ export const copy = {
     ],
 
     prizesEyebrow: "All night long",
-    prizesTitle: "Prizes, Raffles, and Big Surprises",
+    prizesTitle: "Prizes, Surprises, and Special Moments",
     prizesSub:
       "A night to celebrate and thank everyone who has been part of our story.",
     prizeFeatured: {
@@ -223,7 +212,7 @@ export const copy = {
       tag: "Highlight moment",
     },
     prizes: [
-      "Raffles Throughout the Night",
+      "Surprises Throughout the Night",
       "Guest Surprises",
       "Recognitions",
     ],

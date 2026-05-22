@@ -15,9 +15,9 @@ import shield from "@/assets/caley-shield.webp";
 import {
   Calendar, Clock, MapPin, Users, Music, PartyPopper, Gift, Sparkles,
   UsersRound, Star, Award, Crown,
-  ChevronDown, CalendarPlus, Copy as CopyIcon, ExternalLink, Quote,
+  ChevronDown, Copy as CopyIcon, ExternalLink, Quote,
 } from "lucide-react";
-import { generateICSFile, openGoogleMaps, copyAddress } from "@/lib/actions";
+import { openGoogleMaps, copyAddress } from "@/lib/actions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -282,7 +282,7 @@ function Hero({ t }: { t: Copy }) {
 /* ---------- Brand quote intermission (narrow framed moment) ---------- */
 function BrandQuote({ t }: { t: Copy }) {
   return (
-    <section className="relative py-14 sm:py-20">
+    <section className="relative py-12 sm:py-16">
       <Container>
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
@@ -481,19 +481,12 @@ function GhostPillButton({ onClick, Icon, children }: { onClick: () => void; Ico
 
 function EventDetails({ t }: { t: Copy }) {
   return (
-    <section id="details" className="relative py-12 sm:py-32">
+    <section id="details" className="relative py-10 sm:py-24">
       <Container>
         <Reveal><SectionTitle eyebrow={t.detailsEyebrow} title={t.detailsTitle} /></Reveal>
 
         <div className="grid gap-4 sm:gap-7 md:gap-8 md:grid-cols-3">
-          <DetailCard Icon={Calendar} label={t.dateL} value={t.dateV} delay={0}>
-            <GoldPillButton
-              onClick={() => generateICSFile({ title: t.icsTitle, description: t.icsDescription })}
-              Icon={CalendarPlus}
-            >
-              {t.saveDateBtn}
-            </GoldPillButton>
-          </DetailCard>
+          <DetailCard Icon={Calendar} label={t.dateL} value={t.dateV} delay={0} />
 
           <DetailCard Icon={Clock} label={t.timeL} value={t.timeV} delay={90} />
 
@@ -514,7 +507,7 @@ function EventDetails({ t }: { t: Copy }) {
         </div>
 
         <Reveal delay={240}>
-          <div className="mx-auto mt-6 max-w-2xl sm:mt-14">
+          <div className="mx-auto mt-5 max-w-2xl sm:mt-10">
             <div
               className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-[20px] px-4 py-4 text-center sm:gap-7 sm:rounded-[28px] sm:px-10 sm:py-8"
               style={{
@@ -590,7 +583,7 @@ function EventDetails({ t }: { t: Copy }) {
 /* ---------- What to expect — featured + grid ---------- */
 function Expect({ t }: { t: Copy }) {
   return (
-    <section className="relative py-20 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <Container>
         <Reveal><SectionTitle eyebrow={t.expectEyebrow} title={t.expectTitle} /></Reveal>
 
@@ -705,7 +698,7 @@ function ExpectMiniCard({ t, d, Icon, delay = 0 }: { t: string; d: string; Icon:
 function Story({ t }: { t: Copy }) {
   const icons = [Sparkles, Award, Users, Crown];
   return (
-    <section className="relative py-20 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <Container>
         <Reveal><SectionTitle eyebrow={t.storyEyebrow} title={t.storyTitle} sub={t.storySub} /></Reveal>
         <div className="relative mx-auto max-w-3xl">
@@ -772,7 +765,7 @@ function Story({ t }: { t: Copy }) {
 /* ---------- Countdown — wrapped in a luxury frame ---------- */
 function CountdownSection({ t }: { t: Copy }) {
   return (
-    <section className="relative py-20 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <div
         className="pointer-events-none absolute inset-x-0 top-1/2 -z-0 h-96 -translate-y-1/2"
         style={{ background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,87,184,0.3), transparent 70%)" }}
@@ -823,7 +816,7 @@ function CountdownSection({ t }: { t: Copy }) {
 /* ---------- Final invitation card ---------- */
 function FinalInvitation({ t }: { t: Copy }) {
   return (
-    <section className="relative py-20 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <Container>
         <Reveal>
           <div
