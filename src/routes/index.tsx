@@ -336,17 +336,21 @@ function SectionTitle({ eyebrow, title, sub }: { eyebrow?: string; title: string
 }
 
 /* ---------- Event details ---------- */
-function GoldMedallion({ Icon }: { Icon: typeof Calendar }) {
+function GoldMedallion({ Icon, compact = false }: { Icon: typeof Calendar; compact?: boolean }) {
+  const outer = compact ? "h-[58px] w-[58px] sm:h-[100px] sm:w-[100px]" : "h-[88px] w-[88px] sm:h-[100px] sm:w-[100px]";
+  const inner = compact ? "h-[48px] w-[48px] sm:h-[86px] sm:w-[86px]" : "h-[74px] w-[74px] sm:h-[86px] sm:w-[86px]";
+  const iconCls = compact ? "h-5 w-5 sm:h-9 sm:w-9" : "h-8 w-8 sm:h-9 sm:w-9";
+  const wrap = compact ? "relative mx-auto mb-3 sm:mb-7" : "relative mx-auto mb-7";
   return (
-    <div className="relative mx-auto mb-7">
+    <div className={wrap}>
       {/* outer bloom */}
       <div
-        className="pointer-events-none absolute -inset-5 rounded-full opacity-70"
+        className="pointer-events-none absolute -inset-4 rounded-full opacity-70 sm:-inset-5"
         style={{ background: "radial-gradient(circle, rgba(245,199,107,0.45), transparent 70%)", filter: "blur(14px)" }}
       />
       {/* outer gold ring */}
       <div
-        className="relative flex h-[88px] w-[88px] items-center justify-center rounded-full sm:h-[100px] sm:w-[100px]"
+        className={`relative flex items-center justify-center rounded-full ${outer}`}
         style={{
           background: "conic-gradient(from 210deg, #8a6824, #fff4d2 25%, #d6a84f 50%, #8a6824 75%, #f5c76b 100%)",
           boxShadow:
@@ -355,7 +359,7 @@ function GoldMedallion({ Icon }: { Icon: typeof Calendar }) {
       >
         {/* inner medallion */}
         <div
-          className="relative flex h-[74px] w-[74px] items-center justify-center rounded-full sm:h-[86px] sm:w-[86px]"
+          className={`relative flex items-center justify-center rounded-full ${inner}`}
           style={{
             background:
               "radial-gradient(circle at 32% 28%, #fff8e0 0%, #f5c76b 35%, #c89537 70%, #6e4d12 100%)",
@@ -368,7 +372,7 @@ function GoldMedallion({ Icon }: { Icon: typeof Calendar }) {
             className="pointer-events-none absolute left-[18%] top-[14%] h-[28%] w-[40%] rounded-full opacity-80"
             style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.85), transparent 70%)", filter: "blur(2px)" }}
           />
-          <Icon className="relative h-8 w-8 sm:h-9 sm:w-9" style={{ color: "#2a1b04" }} strokeWidth={1.6} />
+          <Icon className={`relative ${iconCls}`} style={{ color: "#2a1b04" }} strokeWidth={1.6} />
         </div>
       </div>
     </div>
@@ -383,14 +387,14 @@ function DetailCard({
   return (
     <Reveal delay={delay}>
       <div
-        className="group relative flex h-full flex-col items-center overflow-hidden rounded-[28px] p-9 pt-10 text-center transition-all duration-500 hover:-translate-y-1.5 sm:p-11 sm:pt-12"
+        className="group relative flex h-full flex-col items-center overflow-hidden rounded-[22px] p-5 pt-6 text-center transition-all duration-500 hover:-translate-y-1.5 sm:rounded-[28px] sm:p-11 sm:pt-12"
         style={{
           background:
             "linear-gradient(160deg, rgba(10,28,62,0.78) 0%, rgba(4,14,38,0.85) 55%, rgba(2,8,22,0.92) 100%)",
           backdropFilter: "blur(22px)",
           border: "1px solid rgba(214,168,79,0.5)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,235,180,0.18), inset 0 0 60px -20px rgba(0,87,184,0.45), 0 40px 80px -30px rgba(0,0,0,0.85), 0 0 50px -20px rgba(214,168,79,0.35)",
+            "inset 0 1px 0 rgba(255,235,180,0.18), inset 0 0 60px -20px rgba(0,87,184,0.45), 0 30px 60px -25px rgba(0,0,0,0.8), 0 0 40px -20px rgba(214,168,79,0.35)",
         }}
       >
         {/* top gold seam */}
@@ -412,16 +416,16 @@ function DetailCard({
           style={{ background: "radial-gradient(circle, rgba(0,166,255,0.5), transparent 70%)", filter: "blur(30px)" }}
         />
 
-        <GoldMedallion Icon={Icon} />
+        <GoldMedallion Icon={Icon} compact />
 
         <div
-          className="text-[11px] uppercase tracking-[0.5em]"
+          className="text-[10px] uppercase tracking-[0.45em] sm:text-[11px] sm:tracking-[0.5em]"
           style={{ fontFamily: "'Cinzel', serif", color: "#d6a84f" }}
         >
           {label}
         </div>
         <div
-          className="mt-4 text-2xl text-white sm:text-3xl"
+          className="mt-2 text-xl text-white sm:mt-4 sm:text-3xl"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontWeight: 500,
@@ -431,7 +435,7 @@ function DetailCard({
         >
           {value}
         </div>
-        {children && <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5">{children}</div>}
+        {children && <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:mt-7 sm:gap-2.5">{children}</div>}
       </div>
     </Reveal>
   );
