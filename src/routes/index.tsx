@@ -310,14 +310,14 @@ function BrandQuote({ t }: { t: Copy }) {
 /* ---------- Section title ---------- */
 function SectionTitle({ eyebrow, title, sub }: { eyebrow?: string; title: string; sub?: string }) {
   return (
-    <div className="mx-auto mb-12 max-w-2xl text-center">
+    <div className="mx-auto mb-7 max-w-2xl text-center sm:mb-12">
       {eyebrow && (
-        <p className="mb-3 text-[10px] uppercase tracking-[0.5em]" style={{ fontFamily: "'Cinzel', serif", color: "#d6a84f" }}>
+        <p className="mb-2 text-[10px] uppercase tracking-[0.5em] sm:mb-3" style={{ fontFamily: "'Cinzel', serif", color: "#d6a84f" }}>
           {eyebrow}
         </p>
       )}
       <h2
-        className="text-3xl sm:text-5xl"
+        className="text-2xl sm:text-5xl"
         style={{
           fontFamily: "'Cinzel', serif",
           background: "linear-gradient(180deg, #ffffff 0%, #f5c76b 100%)",
@@ -329,8 +329,8 @@ function SectionTitle({ eyebrow, title, sub }: { eyebrow?: string; title: string
       >
         {title}
       </h2>
-      <GoldDivider className="my-5" />
-      {sub && <p className="mt-2 text-base text-white/75 sm:text-lg">{sub}</p>}
+      <GoldDivider className="my-4 sm:my-5" />
+      {sub && <p className="mt-2 text-sm text-white/75 sm:text-lg">{sub}</p>}
     </div>
   );
 }
