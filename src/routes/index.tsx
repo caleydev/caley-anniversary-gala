@@ -445,7 +445,7 @@ function GoldPillButton({ onClick, Icon, children }: { onClick: () => void; Icon
   return (
     <button
       onClick={onClick}
-      className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.28em] transition-all hover:scale-[1.04]"
+      className="group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] transition-all hover:scale-[1.04] sm:gap-2 sm:px-5 sm:py-2.5 sm:tracking-[0.28em]"
       style={{
         background: "linear-gradient(135deg, #fff4d2 0%, #f5c76b 30%, #d6a84f 65%, #a4781c 100%)",
         color: "#1a1004",
@@ -454,7 +454,7 @@ function GoldPillButton({ onClick, Icon, children }: { onClick: () => void; Icon
           "0 10px 24px -8px rgba(214,168,79,0.75), inset 0 1px 0 rgba(255,250,225,0.7), inset 0 -1px 2px rgba(80,55,10,0.45), 0 0 0 1px rgba(255,235,180,0.35)",
       }}
     >
-      <Icon className="h-3.5 w-3.5" strokeWidth={2.2} />
+      <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" strokeWidth={2.2} />
       <span>{children}</span>
     </button>
   );
@@ -464,7 +464,7 @@ function GhostPillButton({ onClick, Icon, children }: { onClick: () => void; Ico
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-white/90 transition-all hover:bg-white/[0.07] hover:text-white"
+      className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/90 transition-all hover:bg-white/[0.07] hover:text-white sm:gap-2 sm:px-5 sm:py-2.5 sm:tracking-[0.28em]"
       style={{
         fontFamily: "'Cinzel', serif",
         border: "1px solid rgba(214,168,79,0.55)",
@@ -473,7 +473,7 @@ function GhostPillButton({ onClick, Icon, children }: { onClick: () => void; Ico
         boxShadow: "inset 0 1px 0 rgba(255,235,180,0.1), 0 6px 16px -8px rgba(0,0,0,0.6)",
       }}
     >
-      <Icon className="h-3.5 w-3.5" strokeWidth={2} />
+      <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" strokeWidth={2} />
       <span>{children}</span>
     </button>
   );
