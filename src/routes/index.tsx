@@ -45,7 +45,7 @@ function Page() {
       <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
         <NightSkyBackground />
       </div>
-      <FireworksBackground intensity={isOpened ? 0.4 : 0.18} />
+      <FireworksBackground intensity={isOpened ? 0.75 : 0.28} />
       <ParticleField count={isOpened ? 36 : 16} />
       <LanguageToggle lang={lang} setLang={setLang} />
 
@@ -310,14 +310,14 @@ function BrandQuote({ t }: { t: Copy }) {
 /* ---------- Section title ---------- */
 function SectionTitle({ eyebrow, title, sub }: { eyebrow?: string; title: string; sub?: string }) {
   return (
-    <div className="mx-auto mb-12 max-w-2xl text-center">
+    <div className="mx-auto mb-7 max-w-2xl text-center sm:mb-12">
       {eyebrow && (
-        <p className="mb-3 text-[10px] uppercase tracking-[0.5em]" style={{ fontFamily: "'Cinzel', serif", color: "#d6a84f" }}>
+        <p className="mb-2 text-[10px] uppercase tracking-[0.5em] sm:mb-3" style={{ fontFamily: "'Cinzel', serif", color: "#d6a84f" }}>
           {eyebrow}
         </p>
       )}
       <h2
-        className="text-3xl sm:text-5xl"
+        className="text-2xl sm:text-5xl"
         style={{
           fontFamily: "'Cinzel', serif",
           background: "linear-gradient(180deg, #ffffff 0%, #f5c76b 100%)",
@@ -329,24 +329,28 @@ function SectionTitle({ eyebrow, title, sub }: { eyebrow?: string; title: string
       >
         {title}
       </h2>
-      <GoldDivider className="my-5" />
-      {sub && <p className="mt-2 text-base text-white/75 sm:text-lg">{sub}</p>}
+      <GoldDivider className="my-4 sm:my-5" />
+      {sub && <p className="mt-2 text-sm text-white/75 sm:text-lg">{sub}</p>}
     </div>
   );
 }
 
 /* ---------- Event details ---------- */
-function GoldMedallion({ Icon }: { Icon: typeof Calendar }) {
+function GoldMedallion({ Icon, compact = false }: { Icon: typeof Calendar; compact?: boolean }) {
+  const outer = compact ? "h-[58px] w-[58px] sm:h-[100px] sm:w-[100px]" : "h-[88px] w-[88px] sm:h-[100px] sm:w-[100px]";
+  const inner = compact ? "h-[48px] w-[48px] sm:h-[86px] sm:w-[86px]" : "h-[74px] w-[74px] sm:h-[86px] sm:w-[86px]";
+  const iconCls = compact ? "h-5 w-5 sm:h-9 sm:w-9" : "h-8 w-8 sm:h-9 sm:w-9";
+  const wrap = compact ? "relative mx-auto mb-3 sm:mb-7" : "relative mx-auto mb-7";
   return (
-    <div className="relative mx-auto mb-7">
+    <div className={wrap}>
       {/* outer bloom */}
       <div
-        className="pointer-events-none absolute -inset-5 rounded-full opacity-70"
+        className="pointer-events-none absolute -inset-4 rounded-full opacity-70 sm:-inset-5"
         style={{ background: "radial-gradient(circle, rgba(245,199,107,0.45), transparent 70%)", filter: "blur(14px)" }}
       />
       {/* outer gold ring */}
       <div
-        className="relative flex h-[88px] w-[88px] items-center justify-center rounded-full sm:h-[100px] sm:w-[100px]"
+        className={`relative flex items-center justify-center rounded-full ${outer}`}
         style={{
           background: "conic-gradient(from 210deg, #8a6824, #fff4d2 25%, #d6a84f 50%, #8a6824 75%, #f5c76b 100%)",
           boxShadow:
@@ -355,7 +359,7 @@ function GoldMedallion({ Icon }: { Icon: typeof Calendar }) {
       >
         {/* inner medallion */}
         <div
-          className="relative flex h-[74px] w-[74px] items-center justify-center rounded-full sm:h-[86px] sm:w-[86px]"
+          className={`relative flex items-center justify-center rounded-full ${inner}`}
           style={{
             background:
               "radial-gradient(circle at 32% 28%, #fff8e0 0%, #f5c76b 35%, #c89537 70%, #6e4d12 100%)",
@@ -368,7 +372,7 @@ function GoldMedallion({ Icon }: { Icon: typeof Calendar }) {
             className="pointer-events-none absolute left-[18%] top-[14%] h-[28%] w-[40%] rounded-full opacity-80"
             style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.85), transparent 70%)", filter: "blur(2px)" }}
           />
-          <Icon className="relative h-8 w-8 sm:h-9 sm:w-9" style={{ color: "#2a1b04" }} strokeWidth={1.6} />
+          <Icon className={`relative ${iconCls}`} style={{ color: "#2a1b04" }} strokeWidth={1.6} />
         </div>
       </div>
     </div>
@@ -383,14 +387,14 @@ function DetailCard({
   return (
     <Reveal delay={delay}>
       <div
-        className="group relative flex h-full flex-col items-center overflow-hidden rounded-[28px] p-9 pt-10 text-center transition-all duration-500 hover:-translate-y-1.5 sm:p-11 sm:pt-12"
+        className="group relative flex h-full flex-col items-center overflow-hidden rounded-[22px] p-5 pt-6 text-center transition-all duration-500 hover:-translate-y-1.5 sm:rounded-[28px] sm:p-11 sm:pt-12"
         style={{
           background:
             "linear-gradient(160deg, rgba(10,28,62,0.78) 0%, rgba(4,14,38,0.85) 55%, rgba(2,8,22,0.92) 100%)",
           backdropFilter: "blur(22px)",
           border: "1px solid rgba(214,168,79,0.5)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,235,180,0.18), inset 0 0 60px -20px rgba(0,87,184,0.45), 0 40px 80px -30px rgba(0,0,0,0.85), 0 0 50px -20px rgba(214,168,79,0.35)",
+            "inset 0 1px 0 rgba(255,235,180,0.18), inset 0 0 60px -20px rgba(0,87,184,0.45), 0 30px 60px -25px rgba(0,0,0,0.8), 0 0 40px -20px rgba(214,168,79,0.35)",
         }}
       >
         {/* top gold seam */}
@@ -412,16 +416,16 @@ function DetailCard({
           style={{ background: "radial-gradient(circle, rgba(0,166,255,0.5), transparent 70%)", filter: "blur(30px)" }}
         />
 
-        <GoldMedallion Icon={Icon} />
+        <GoldMedallion Icon={Icon} compact />
 
         <div
-          className="text-[11px] uppercase tracking-[0.5em]"
+          className="text-[10px] uppercase tracking-[0.45em] sm:text-[11px] sm:tracking-[0.5em]"
           style={{ fontFamily: "'Cinzel', serif", color: "#d6a84f" }}
         >
           {label}
         </div>
         <div
-          className="mt-4 text-2xl text-white sm:text-3xl"
+          className="mt-2 text-xl text-white sm:mt-4 sm:text-3xl"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontWeight: 500,
@@ -431,7 +435,7 @@ function DetailCard({
         >
           {value}
         </div>
-        {children && <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5">{children}</div>}
+        {children && <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:mt-7 sm:gap-2.5">{children}</div>}
       </div>
     </Reveal>
   );
@@ -441,7 +445,7 @@ function GoldPillButton({ onClick, Icon, children }: { onClick: () => void; Icon
   return (
     <button
       onClick={onClick}
-      className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.28em] transition-all hover:scale-[1.04]"
+      className="group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] transition-all hover:scale-[1.04] sm:gap-2 sm:px-5 sm:py-2.5 sm:tracking-[0.28em]"
       style={{
         background: "linear-gradient(135deg, #fff4d2 0%, #f5c76b 30%, #d6a84f 65%, #a4781c 100%)",
         color: "#1a1004",
@@ -450,7 +454,7 @@ function GoldPillButton({ onClick, Icon, children }: { onClick: () => void; Icon
           "0 10px 24px -8px rgba(214,168,79,0.75), inset 0 1px 0 rgba(255,250,225,0.7), inset 0 -1px 2px rgba(80,55,10,0.45), 0 0 0 1px rgba(255,235,180,0.35)",
       }}
     >
-      <Icon className="h-3.5 w-3.5" strokeWidth={2.2} />
+      <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" strokeWidth={2.2} />
       <span>{children}</span>
     </button>
   );
@@ -460,7 +464,7 @@ function GhostPillButton({ onClick, Icon, children }: { onClick: () => void; Ico
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.28em] text-white/90 transition-all hover:bg-white/[0.07] hover:text-white"
+      className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/90 transition-all hover:bg-white/[0.07] hover:text-white sm:gap-2 sm:px-5 sm:py-2.5 sm:tracking-[0.28em]"
       style={{
         fontFamily: "'Cinzel', serif",
         border: "1px solid rgba(214,168,79,0.55)",
@@ -469,7 +473,7 @@ function GhostPillButton({ onClick, Icon, children }: { onClick: () => void; Ico
         boxShadow: "inset 0 1px 0 rgba(255,235,180,0.1), 0 6px 16px -8px rgba(0,0,0,0.6)",
       }}
     >
-      <Icon className="h-3.5 w-3.5" strokeWidth={2} />
+      <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" strokeWidth={2} />
       <span>{children}</span>
     </button>
   );
@@ -477,11 +481,11 @@ function GhostPillButton({ onClick, Icon, children }: { onClick: () => void; Ico
 
 function EventDetails({ t }: { t: Copy }) {
   return (
-    <section id="details" className="relative py-24 sm:py-32">
+    <section id="details" className="relative py-12 sm:py-32">
       <Container>
         <Reveal><SectionTitle eyebrow={t.detailsEyebrow} title={t.detailsTitle} /></Reveal>
 
-        <div className="grid gap-7 md:gap-8 md:grid-cols-3">
+        <div className="grid gap-4 sm:gap-7 md:gap-8 md:grid-cols-3">
           <DetailCard Icon={Calendar} label={t.dateL} value={t.dateV} delay={0}>
             <GoldPillButton
               onClick={() => generateICSFile({ title: t.icsTitle, description: t.icsDescription })}
@@ -499,7 +503,7 @@ function EventDetails({ t }: { t: Copy }) {
             value={
               <span className="flex flex-col leading-tight">
                 <span>{t.placeV1}</span>
-                <span className="mt-1 text-lg text-white/85 sm:text-xl">{t.placeV2}</span>
+                <span className="mt-1 text-base text-white/85 sm:text-xl">{t.placeV2}</span>
               </span>
             }
             delay={180}
@@ -510,28 +514,24 @@ function EventDetails({ t }: { t: Copy }) {
         </div>
 
         <Reveal delay={240}>
-          <div className="mx-auto mt-12 max-w-2xl sm:mt-14">
+          <div className="mx-auto mt-6 max-w-2xl sm:mt-14">
             <div
-              className="group relative flex items-center justify-center gap-5 overflow-hidden rounded-[28px] px-8 py-7 text-center sm:gap-7 sm:px-10 sm:py-8"
+              className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-[20px] px-4 py-4 text-center sm:gap-7 sm:rounded-[28px] sm:px-10 sm:py-8"
               style={{
                 background:
                   "linear-gradient(160deg, rgba(10,28,62,0.78) 0%, rgba(4,14,38,0.85) 55%, rgba(2,8,22,0.92) 100%)",
                 backdropFilter: "blur(22px)",
                 border: "1px solid rgba(214,168,79,0.5)",
                 boxShadow:
-                  "inset 0 1px 0 rgba(255,235,180,0.18), inset 0 0 60px -20px rgba(0,87,184,0.45), 0 40px 80px -30px rgba(0,0,0,0.85), 0 0 50px -20px rgba(214,168,79,0.35)",
+                  "inset 0 1px 0 rgba(255,235,180,0.18), inset 0 0 60px -20px rgba(0,87,184,0.45), 0 30px 60px -25px rgba(0,0,0,0.8), 0 0 40px -20px rgba(214,168,79,0.35)",
               }}
             >
-              {/* top gold seam */}
               <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #f5c76b, transparent)" }} />
-              {/* bottom gold seam */}
               <div className="absolute inset-x-0 bottom-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(214,168,79,0.5), transparent)" }} />
-              {/* subtle inner bloom on hover */}
               <div
                 className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(0,166,255,0.28), transparent 60%)" }}
               />
-              {/* faint corner gold flares */}
               <div
                 className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full opacity-30"
                 style={{ background: "radial-gradient(circle, rgba(245,199,107,0.55), transparent 70%)", filter: "blur(30px)" }}
@@ -541,14 +541,14 @@ function EventDetails({ t }: { t: Copy }) {
                 style={{ background: "radial-gradient(circle, rgba(0,166,255,0.5), transparent 70%)", filter: "blur(30px)" }}
               />
 
-              {/* dimensional gold medallion icon */}
+              {/* dimensional gold medallion icon — matches the GoldMedallion family */}
               <div className="relative shrink-0">
                 <div
-                  className="pointer-events-none absolute -inset-4 rounded-full opacity-70"
+                  className="pointer-events-none absolute -inset-3 rounded-full opacity-70 sm:-inset-4"
                   style={{ background: "radial-gradient(circle, rgba(245,199,107,0.45), transparent 70%)", filter: "blur(14px)" }}
                 />
                 <div
-                  className="relative flex h-[68px] w-[68px] items-center justify-center rounded-full sm:h-[78px] sm:w-[78px]"
+                  className="relative flex h-[44px] w-[44px] items-center justify-center rounded-full sm:h-[78px] sm:w-[78px]"
                   style={{
                     background: "conic-gradient(from 210deg, #8a6824, #fff4d2 25%, #d6a84f 50%, #8a6824 75%, #f5c76b 100%)",
                     boxShadow:
@@ -556,7 +556,7 @@ function EventDetails({ t }: { t: Copy }) {
                   }}
                 >
                   <div
-                    className="relative flex h-[56px] w-[56px] items-center justify-center rounded-full sm:h-[66px] sm:w-[66px]"
+                    className="relative flex h-[36px] w-[36px] items-center justify-center rounded-full sm:h-[66px] sm:w-[66px]"
                     style={{
                       background:
                         "radial-gradient(circle at 32% 28%, #fff8e0 0%, #f5c76b 35%, #c89537 70%, #6e4d12 100%)",
@@ -568,14 +568,14 @@ function EventDetails({ t }: { t: Copy }) {
                       className="pointer-events-none absolute left-[18%] top-[14%] h-[28%] w-[40%] rounded-full opacity-80"
                       style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.85), transparent 70%)", filter: "blur(2px)" }}
                     />
-                    <Users className="relative h-6 w-6 sm:h-7 sm:w-7" style={{ color: "#2a1b04" }} strokeWidth={1.6} />
+                    <Users className="relative h-4 w-4 sm:h-7 sm:w-7" style={{ color: "#2a1b04" }} strokeWidth={1.6} />
                   </div>
                 </div>
               </div>
 
               <span
-                className="relative text-white/95"
-                style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.05rem, 2.2vw, 1.35rem)", fontStyle: "italic", letterSpacing: "0.01em", textShadow: "0 2px 18px rgba(0,0,0,0.5), 0 0 30px rgba(245,199,107,0.15)" }}
+                className="relative text-left text-white/95 sm:text-center"
+                style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(0.95rem, 2.2vw, 1.35rem)", fontStyle: "italic", letterSpacing: "0.01em", textShadow: "0 2px 18px rgba(0,0,0,0.5), 0 0 30px rgba(245,199,107,0.15)" }}
               >
                 {t.guestsLine}
               </span>
