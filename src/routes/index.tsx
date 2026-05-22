@@ -14,7 +14,7 @@ import logo from "@/assets/caley-logo.webp";
 import shield from "@/assets/caley-shield.webp";
 import {
   Calendar, Clock, MapPin, Users, Music, PartyPopper, Gift, Sparkles,
-  UsersRound, Star, Trophy, Award, Crown,
+  UsersRound, Star, Award, Crown,
   ChevronDown, CalendarPlus, Copy as CopyIcon, ExternalLink, Quote,
 } from "lucide-react";
 import { generateICSFile, openGoogleMaps, copyAddress } from "@/lib/actions";
@@ -59,7 +59,6 @@ function Page() {
             <BrandQuote t={t} />
             <EventDetails t={t} />
             <Expect t={t} />
-            <Prizes t={t} />
             <Story t={t} />
             <CountdownSection t={t} />
             <FinalInvitation t={t} />
@@ -701,88 +700,6 @@ function ExpectMiniCard({ t, d, Icon, delay = 0 }: { t: string; d: string; Icon:
   );
 }
 
-/* ---------- Prizes — featured + chips ---------- */
-function Prizes({ t }: { t: Copy }) {
-  return (
-    <section className="relative py-20 sm:py-24">
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(214,168,79,0.12), transparent 70%)" }}
-      />
-      <Container className="relative">
-        <Reveal><SectionTitle eyebrow={t.prizesEyebrow} title={t.prizesTitle} sub={t.prizesSub} /></Reveal>
-
-        {/* Featured prize card */}
-        <Reveal>
-          <div
-            className="relative mx-auto max-w-3xl overflow-hidden rounded-[28px] p-8 text-center sm:p-12"
-            style={{
-              background: "linear-gradient(160deg, rgba(40,28,5,0.55), rgba(6,20,46,0.85))",
-              border: "1px solid rgba(214,168,79,0.6)",
-              boxShadow:
-                "0 50px 100px -30px rgba(0,0,0,0.8), 0 0 90px -10px rgba(214,168,79,0.45), inset 0 1px 0 rgba(255,225,160,0.18)",
-            }}
-          >
-            {/* Subtle moving sparkle */}
-            <div
-              className="pointer-events-none absolute inset-0 opacity-70"
-              style={{
-                background:
-                  "radial-gradient(circle at 18% 22%, rgba(255,245,210,0.85) 0 1.5px, transparent 2px), radial-gradient(circle at 78% 18%, rgba(255,245,210,0.7) 0 1.5px, transparent 2px), radial-gradient(circle at 65% 78%, rgba(255,245,210,0.6) 0 1.5px, transparent 2px), radial-gradient(circle at 25% 75%, rgba(255,245,210,0.5) 0 1.5px, transparent 2px)",
-              }}
-            />
-            <div
-              className="mx-auto flex h-20 w-20 items-center justify-center rounded-full"
-              style={{
-                background: "radial-gradient(circle at 30% 30%, #fff4d2, #f5c76b 50%, #a4781c)",
-                boxShadow: "0 14px 40px -10px rgba(214,168,79,0.8), 0 0 60px rgba(214,168,79,0.35)",
-                animation: "trophyPulse 3.5s ease-in-out infinite",
-              }}
-            >
-              <Trophy className="h-9 w-9" style={{ color: "#2a1b04" }} strokeWidth={1.5} />
-            </div>
-            <p className="mt-5 text-[10px] uppercase tracking-[0.5em] text-[var(--gold)]" style={{ fontFamily: "'Cinzel', serif" }}>
-              {t.prizeFeatured.tag}
-            </p>
-            <h3
-              className="mt-2 text-3xl sm:text-4xl"
-              style={{
-                fontFamily: "'Cormorant Garamond', serif", fontWeight: 600,
-                background: "linear-gradient(180deg, #fff4d2 0%, #d6a84f 100%)",
-                WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent",
-              }}
-            >
-              {t.prizeFeatured.t}
-            </h3>
-            <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-white/80">{t.prizeFeatured.d}</p>
-          </div>
-        </Reveal>
-
-        {/* Secondary prize chips */}
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          {t.prizes.map((p, i) => (
-            <Reveal key={p} delay={i * 80}>
-              <div
-                className="flex items-center gap-3 rounded-full px-5 py-4"
-                style={{
-                  background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-                  border: "1px solid rgba(214,168,79,0.4)",
-                  backdropFilter: "blur(14px)",
-                }}
-              >
-                <Sparkles className="h-4 w-4 shrink-0 text-[var(--gold)]" />
-                <span className="text-sm text-white/90" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem" }}>
-                  {p}
-                </span>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
-      <style>{`@keyframes trophyPulse { 0%,100% { transform: scale(1); box-shadow: 0 14px 40px -10px rgba(214,168,79,0.8), 0 0 60px rgba(214,168,79,0.35); } 50% { transform: scale(1.04); box-shadow: 0 14px 40px -10px rgba(214,168,79,1), 0 0 90px rgba(214,168,79,0.55); } }`}</style>
-    </section>
-  );
-}
 
 /* ---------- Story timeline with years ---------- */
 function Story({ t }: { t: Copy }) {
