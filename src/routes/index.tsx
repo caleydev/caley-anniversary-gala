@@ -45,7 +45,7 @@ function Page() {
       <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
         <NightSkyBackground />
       </div>
-      <FireworksBackground intensity={isOpened ? 0.75 : 0.28} />
+      <FireworksBackground intensity={isOpened ? 0.45 : 0.22} />
       <ParticleField count={isOpened ? 36 : 16} />
       <LanguageToggle lang={lang} setLang={setLang} />
 
