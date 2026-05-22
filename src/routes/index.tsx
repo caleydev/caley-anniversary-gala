@@ -511,32 +511,76 @@ function EventDetails({ t }: { t: Copy }) {
         </div>
 
         <Reveal delay={240}>
-          <div
-            className="mx-auto mt-12 flex max-w-2xl items-center justify-center gap-4 rounded-full px-7 py-5 text-center sm:mt-14"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(6,20,46,0.75), rgba(214,168,79,0.22) 50%, rgba(6,20,46,0.75))",
-              border: "1px solid rgba(214,168,79,0.55)",
-              backdropFilter: "blur(16px)",
-              boxShadow:
-                "inset 0 1px 0 rgba(255,235,180,0.18), 0 20px 50px -20px rgba(0,0,0,0.7), 0 0 40px -16px rgba(214,168,79,0.4)",
-            }}
-          >
+          <div className="mx-auto mt-12 max-w-2xl sm:mt-14">
             <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+              className="group relative flex items-center justify-center gap-5 overflow-hidden rounded-[28px] px-8 py-7 text-center sm:gap-7 sm:px-10 sm:py-8"
               style={{
-                background: "radial-gradient(circle at 30% 30%, #fff4d2, #d6a84f 60%, #8a6824)",
-                boxShadow: "0 6px 16px -4px rgba(214,168,79,0.7), inset 0 1px 0 rgba(255,250,225,0.6)",
+                background:
+                  "linear-gradient(160deg, rgba(10,28,62,0.78) 0%, rgba(4,14,38,0.85) 55%, rgba(2,8,22,0.92) 100%)",
+                backdropFilter: "blur(22px)",
+                border: "1px solid rgba(214,168,79,0.5)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,235,180,0.18), inset 0 0 60px -20px rgba(0,87,184,0.45), 0 40px 80px -30px rgba(0,0,0,0.85), 0 0 50px -20px rgba(214,168,79,0.35)",
               }}
             >
-              <Users className="h-4 w-4" style={{ color: "#2a1b04" }} strokeWidth={2} />
+              {/* top gold seam */}
+              <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #f5c76b, transparent)" }} />
+              {/* bottom gold seam */}
+              <div className="absolute inset-x-0 bottom-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(214,168,79,0.5), transparent)" }} />
+              {/* subtle inner bloom on hover */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(0,166,255,0.28), transparent 60%)" }}
+              />
+              {/* faint corner gold flares */}
+              <div
+                className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full opacity-30"
+                style={{ background: "radial-gradient(circle, rgba(245,199,107,0.55), transparent 70%)", filter: "blur(30px)" }}
+              />
+              <div
+                className="pointer-events-none absolute -bottom-16 -left-16 h-40 w-40 rounded-full opacity-25"
+                style={{ background: "radial-gradient(circle, rgba(0,166,255,0.5), transparent 70%)", filter: "blur(30px)" }}
+              />
+
+              {/* dimensional gold medallion icon */}
+              <div className="relative shrink-0">
+                <div
+                  className="pointer-events-none absolute -inset-4 rounded-full opacity-70"
+                  style={{ background: "radial-gradient(circle, rgba(245,199,107,0.45), transparent 70%)", filter: "blur(14px)" }}
+                />
+                <div
+                  className="relative flex h-[68px] w-[68px] items-center justify-center rounded-full sm:h-[78px] sm:w-[78px]"
+                  style={{
+                    background: "conic-gradient(from 210deg, #8a6824, #fff4d2 25%, #d6a84f 50%, #8a6824 75%, #f5c76b 100%)",
+                    boxShadow:
+                      "0 18px 40px -10px rgba(214,168,79,0.55), 0 0 0 1px rgba(255,240,200,0.4), inset 0 0 0 1px rgba(60,40,5,0.3)",
+                  }}
+                >
+                  <div
+                    className="relative flex h-[56px] w-[56px] items-center justify-center rounded-full sm:h-[66px] sm:w-[66px]"
+                    style={{
+                      background:
+                        "radial-gradient(circle at 32% 28%, #fff8e0 0%, #f5c76b 35%, #c89537 70%, #6e4d12 100%)",
+                      boxShadow:
+                        "inset 0 2px 4px rgba(255,245,210,0.7), inset 0 -3px 8px rgba(70,45,10,0.55), 0 6px 16px -4px rgba(0,0,0,0.5)",
+                    }}
+                  >
+                    <span
+                      className="pointer-events-none absolute left-[18%] top-[14%] h-[28%] w-[40%] rounded-full opacity-80"
+                      style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.85), transparent 70%)", filter: "blur(2px)" }}
+                    />
+                    <Users className="relative h-6 w-6 sm:h-7 sm:w-7" style={{ color: "#2a1b04" }} strokeWidth={1.6} />
+                  </div>
+                </div>
+              </div>
+
+              <span
+                className="relative text-white/95"
+                style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.05rem, 2.2vw, 1.35rem)", fontStyle: "italic", letterSpacing: "0.01em", textShadow: "0 2px 18px rgba(0,0,0,0.5), 0 0 30px rgba(245,199,107,0.15)" }}
+              >
+                {t.guestsLine}
+              </span>
             </div>
-            <span
-              className="text-white/95"
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.18rem", fontStyle: "italic", letterSpacing: "0.01em" }}
-            >
-              {t.guestsLine}
-            </span>
           </div>
         </Reveal>
       </Container>
