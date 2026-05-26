@@ -14,7 +14,7 @@ import logo from "@/assets/caley-logo.webp";
 import shield from "@/assets/caley-shield.webp";
 import {
   Calendar, Clock, MapPin, Users, Music, PartyPopper, Gift, Sparkles,
-  UsersRound, Star, Award, Crown,
+  UsersRound, Star, Award, Crown, Shirt,
   ChevronDown, Copy as CopyIcon, ExternalLink, Quote,
 } from "lucide-react";
 import { openGoogleMaps, copyAddress } from "@/lib/actions";
@@ -387,7 +387,7 @@ function DetailCard({
   return (
     <Reveal delay={delay}>
       <div
-        className="group relative flex h-full flex-col items-center overflow-hidden rounded-[22px] p-5 pt-6 text-center transition-all duration-500 hover:-translate-y-1.5 sm:rounded-[28px] sm:p-11 sm:pt-12"
+        className="group relative flex h-full flex-col items-center overflow-hidden rounded-[22px] p-4 pt-5 text-center transition-all duration-500 hover:-translate-y-1.5 sm:rounded-[28px] sm:p-8 sm:pt-9 lg:p-6 lg:pt-8 xl:p-7 xl:pt-9"
         style={{
           background:
             "linear-gradient(160deg, rgba(10,28,62,0.78) 0%, rgba(4,14,38,0.85) 55%, rgba(2,8,22,0.92) 100%)",
@@ -485,10 +485,12 @@ function EventDetails({ t }: { t: Copy }) {
       <Container>
         <Reveal><SectionTitle eyebrow={t.detailsEyebrow} title={t.detailsTitle} /></Reveal>
 
-        <div className="grid gap-4 sm:gap-7 md:gap-8 md:grid-cols-3">
+        <div className="grid items-stretch gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-4 xl:gap-5">
           <DetailCard Icon={Calendar} label={t.dateL} value={t.dateV} delay={0} />
 
           <DetailCard Icon={Clock} label={t.timeL} value={t.timeV} delay={90} />
+
+          <DetailCard Icon={Shirt} label={t.dressCodeL} value={t.dressCodeV} delay={180} />
 
           <DetailCard
             Icon={MapPin}
@@ -499,7 +501,7 @@ function EventDetails({ t }: { t: Copy }) {
                 <span className="mt-1 text-base text-white/85 sm:text-xl">{t.placeV2}</span>
               </span>
             }
-            delay={180}
+            delay={270}
           >
             <GoldPillButton onClick={openGoogleMaps} Icon={ExternalLink}>{t.openMapsBtn}</GoldPillButton>
             <GhostPillButton onClick={() => copyAddress(t.addressCopiedToast)} Icon={CopyIcon}>{t.copyAddressBtn}</GhostPillButton>
@@ -507,7 +509,7 @@ function EventDetails({ t }: { t: Copy }) {
         </div>
 
         <Reveal delay={240}>
-          <div className="mx-auto mt-5 max-w-2xl sm:mt-10">
+          <div className="mx-auto mt-5 max-w-5xl sm:mt-8 lg:mt-10">
             <div
               className="group relative flex items-center justify-center gap-3 overflow-hidden rounded-[20px] px-4 py-4 text-center sm:gap-7 sm:rounded-[28px] sm:px-10 sm:py-8"
               style={{
